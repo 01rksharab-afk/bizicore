@@ -1,0 +1,1765 @@
+// Version: 1.0.0
+type AdminNotification__516924592 =
+  {
+    companyId : Text;
+    createdAt : Int;
+    id : Text;
+    message : Text;
+    readBy : [Text];
+    targetEmployeeId : ?Text;
+    title : Text
+  };
+type AdvanceStatus__248265246 = {#approved; #deducted; #pending; #rejected};
+type Advance__818835540 =
+  {
+    amount : Float;
+    approvedBy : Text;
+    createdAt : Int;
+    employeeId : Nat;
+    id : Nat;
+    orgId : Nat;
+    reason : Text;
+    requestDate : Text;
+    status : AdvanceStatus__248265246
+  };
+type AttendanceType__722248983 = {#absent; #halfDay; #leave; #present};
+type Attendance__373950484 =
+  {
+    attendanceType : AttendanceType__722248983;
+    createdAt : Int;
+    date : Text;
+    employeeId : Nat;
+    id : Nat;
+    notes : Text;
+    orgId : Nat;
+    punchIn : ?Text;
+    punchOut : ?Text;
+    totalHours : Float
+  };
+type AttributeType__9214698 = {#list_; #number_; #text_};
+type BillOfMaterial__815795589 =
+  {
+    components : [BomComponent__410365631];
+    createdAt : Timestamp__311889926;
+    enabled : Bool;
+    id : BomId__72324451;
+    orgId : OrgId__398325135;
+    productName : Text;
+    revision : Text;
+    status : Text
+  };
+type BillStatus__889896358 =
+  {#approved; #draft; #overdue; #paid; #partially_paid};
+type BillTo__255883408 =
+  {
+    address : ?Text;
+    contactId : ?Nat;
+    dealId : ?Nat;
+    email : Text;
+    name : Text;
+    taxId : ?Text
+  };
+type BillingEntry__693834859 =
+  {
+    amount : Nat;
+    currency : Text;
+    description : Text;
+    id : Nat;
+    orgId : OrgId__458696715;
+    paidAt : Timestamp__323235793;
+    stripeInvoiceId : ?Text
+  };
+type BomComponent__410365631 =
+  {cost : Float; itemId : Nat; quantity : Float; unit : Text};
+type BomId__72324451 = Nat;
+type Budget__169032319 =
+  {
+    allocated : Nat;
+    category : TransactionCategory__120004383;
+    createdAt : Timestamp__948113585;
+    id : Nat;
+    orgId : OrgId__36936338;
+    periodEnd : Timestamp__948113585;
+    periodStart : Timestamp__948113585
+  };
+type CategoryId__954569392 = Nat;
+type Category__1047630155 =
+  {
+    createdAt : Timestamp__585266649;
+    createdBy : Principal;
+    description : Text;
+    id : CategoryId__954569392;
+    name : Text;
+    orgId : OrgId__277651477
+  };
+type ContactId__473910962 = Nat;
+type ContactId__836243698 = Nat;
+type Contact__147242489 =
+  {
+    company : ?Text;
+    createdAt : Timestamp__1040901096;
+    createdBy : Principal;
+    email : ?Text;
+    id : ContactId__836243698;
+    name : Text;
+    orgId : OrgId__606152740;
+    phone : ?Text;
+    tags : [Text];
+    updatedAt : Timestamp__1040901096
+  };
+type CostOfProductionId__624721245 = Nat;
+type CostOfProduction__133698274 =
+  {
+    createdAt : Timestamp__311889926;
+    enabled : Bool;
+    id : CostOfProductionId__624721245;
+    labourCost : Float;
+    materialCost : Float;
+    moId : ManufacturingOrderId__242718690;
+    notes : Text;
+    orgId : OrgId__398325135;
+    overheadCost : Float;
+    period : Text;
+    scrapCost : Float;
+    totalCost : Float
+  };
+type CourierProvider__188577610 = {#bluedart; #delhivery; #fedex; #manual};
+type CustomerReceipt__150950380 =
+  {
+    amount : Float;
+    createdAt : Timestamp__871875848;
+    customerId : Nat;
+    id : Nat;
+    invoiceId : ?Nat;
+    isAdvance : Bool;
+    orgId : OrgId__903366708;
+    paymentMode : PaymentMode__444036831;
+    receiptDate : Timestamp__871875848;
+    reference : Text
+  };
+type DashboardLayout__404710035 =
+  {adminEmail : Text; updatedAt : Int; widgetConfig : Text};
+type Data__791452850<K, V> =
+  {var count : Nat__490723111; kvs : [var ?(K, V)]};
+type DealId__471204457 = Nat;
+type DealNote__740770979 =
+  {
+    createdAt : Timestamp__1040901096;
+    createdBy : Principal;
+    dealId : DealId__471204457;
+    id : NoteId__382310931;
+    orgId : OrgId__606152740;
+    text : Text
+  };
+type DealStageEvent__340942422 =
+  {
+    changedAt : Timestamp__1040901096;
+    changedBy : Principal;
+    dealId : DealId__471204457;
+    fromStage : ?DealStage__482157454;
+    orgId : OrgId__606152740;
+    toStage : DealStage__482157454
+  };
+type DealStage__482157454 =
+  {#closedLost; #closedWon; #negotiation; #prospect; #qualified};
+type Deal__868150648 =
+  {
+    closeDate : ?Timestamp__1040901096;
+    contactId : ?ContactId__836243698;
+    createdAt : Timestamp__1040901096;
+    createdBy : Principal;
+    id : DealId__471204457;
+    name : Text;
+    orgId : OrgId__606152740;
+    owner : Principal;
+    stage : DealStage__482157454;
+    updatedAt : Timestamp__1040901096;
+    value : Nat
+  };
+type EmployeeStatus__308592527 = {#active; #inactive};
+type Employee__302625356 =
+  {
+    createdAt : Int;
+    department : Text;
+    designation : Text;
+    email : Text;
+    employeeCode : Text;
+    enabled : Bool;
+    id : Nat;
+    joiningDate : Text;
+    name : Text;
+    orgId : Nat;
+    phone : Text;
+    salaryGrade : Text;
+    status : EmployeeStatus__308592527
+  };
+type ExtendedLead__591610434 =
+  {
+    contactId : ContactId__473910962;
+    createdAt : Timestamp__601572365;
+    createdBy : Principal;
+    id : LeadId__368371629;
+    notes : Text;
+    orgId : OrgId__639847965;
+    score : Nat;
+    source : LeadSource__449839421;
+    status : LeadStatus__621469780;
+    updatedAt : Timestamp__601572365
+  };
+type FilingPeriod__754227488 = {month : Nat; year : Nat};
+type FilingStatus__563030082 = {#acknowledged; #draft; #submitted};
+type FinanceCategoryType__753012660 = {#expense_; #income_};
+type FinanceCategory__400503701 =
+  {
+    categoryType : FinanceCategoryType__753012660;
+    createdAt : Timestamp__236932864;
+    description : Text;
+    id : Text;
+    isActive : Bool;
+    name : Text;
+    orgId : OrgId__335245168;
+    parentId : ?Text
+  };
+type FinishedGoodId__862095402 = Nat;
+type FinishedGood__779369078 =
+  {
+    batchNo : Text;
+    createdAt : Timestamp__311889926;
+    enabled : Bool;
+    expiryDate : ?Timestamp__311889926;
+    id : FinishedGoodId__862095402;
+    moId : ManufacturingOrderId__242718690;
+    orgId : OrgId__398325135;
+    productId : Nat;
+    productionDate : Timestamp__311889926;
+    quantity : Float;
+    status : Text;
+    warehouseLocation : Text
+  };
+type GroupStatus__916441133 = {#Active; #Inactive};
+type Group___740618420 =
+  {
+    createdAt : Timestamp__111540133;
+    description : Text;
+    groupName : Text;
+    id : Nat;
+    orgId : OrgId__804953013;
+    parentGroup : ?Nat;
+    status : GroupStatus__916441133
+  };
+type GstRefundRequest__762416715 =
+  {
+    acknowledgedAt : ?Int;
+    amount : Float;
+    createdAt : Int;
+    filedAt : ?Int;
+    id : Nat;
+    orgId : OrgId__648938842;
+    period : Text;
+    reason : Text;
+    refundType : Text;
+    status : Text
+  };
+type GstReturnId__236186512 = Nat;
+type GstReturnType__411307514 = {#gstr1; #gstr3b};
+type GstReturn__404560024 =
+  {
+    createdAt : Timestamp__585266649;
+    createdBy : Principal;
+    filedAt : ?Timestamp__585266649;
+    gstr1Entries : [Gstr1Entry__501812618];
+    gstr3bEntry : Gstr3bEntry__43822427;
+    id : GstReturnId__236186512;
+    orgId : OrgId__277651477;
+    period : FilingPeriod__754227488;
+    returnType : GstReturnType__411307514;
+    status : FilingStatus__563030082
+  };
+type Gstr1Entry__501812618 =
+  {
+    cgst : Float;
+    customerGstin : ?Text;
+    hsnCode : Text;
+    igst : Float;
+    invoiceDate : Timestamp__585266649;
+    invoiceNumber : Text;
+    sgst : Float;
+    taxableValue : Float
+  };
+type Gstr3bEntry__43822427 =
+  {
+    cgstPayable : Float;
+    igstPayable : Float;
+    inputTaxCredit : Float;
+    netTax : Float;
+    sgstPayable : Float
+  };
+type HsnSacCodeType__343912156 = {#auto_; #manual_};
+type HsnSacCode__981387141 =
+  {
+    category : Text;
+    codeType : HsnSacCodeType__343912156;
+    createdAt : Timestamp__236932864;
+    description : Text;
+    hsnCode : ?Text;
+    id : Text;
+    isActive : Bool;
+    name : Text;
+    orgId : OrgId__335245168;
+    sacCode : ?Text;
+    updatedAt : Timestamp__236932864
+  };
+type IncentiveScheme__778745207 =
+  {
+    category : Text;
+    createdAt : Timestamp__974734513;
+    effectiveFrom : Timestamp__974734513;
+    effectiveTo : ?Timestamp__974734513;
+    id : Nat;
+    orgId : OrgId__159154672;
+    rewardType : RewardType__376015727;
+    rewardValue : Float;
+    schemeName : Text;
+    status : SchemeStatus__852034722;
+    targetMetric : TargetMetric__393851179;
+    targetValue : Float
+  };
+type InteractionKind__668124675 = {#call; #email; #meeting; #other};
+type InteractionNote__757799067 =
+  {
+    contactId : ContactId__836243698;
+    createdAt : Timestamp__1040901096;
+    createdBy : Principal;
+    id : NoteId__382310931;
+    kind : InteractionKind__668124675;
+    occurredAt : Timestamp__1040901096;
+    orgId : OrgId__606152740;
+    outcome : Text
+  };
+type Internal__8484328<K, V> =
+  {children : [var ?Node__46230540<K, V>]; data : Data__791452850<K, V>};
+type InventoryCategory__737440833 =
+  {
+    createdAt : Timestamp__236932864;
+    description : Text;
+    id : Nat;
+    isActive : Bool;
+    name : Text;
+    orgId : OrgId__335245168;
+    parentId : ?Nat
+  };
+type InvoiceId__804954786 = Nat;
+type InvoiceStatus__796623765 = {#draft; #overdue; #paid; #sent; #voided};
+type Invoice__727499845 =
+  {
+    billTo : BillTo__255883408;
+    createdAt : Timestamp__632452311;
+    createdBy : Principal;
+    currency : Text;
+    dueDate : Timestamp__632452311;
+    id : InvoiceId__804954786;
+    invoiceNumber : Text;
+    lineItems : [LineItem__555589752];
+    notes : ?Text;
+    orgId : OrgId__263205227;
+    orgInfo : OrgBillingInfo__1020123740;
+    paidAt : ?Timestamp__632452311;
+    sentAt : ?Timestamp__632452311;
+    status : InvoiceStatus__796623765;
+    stripePaymentIntentId : ?Text;
+    stripePaymentLinkId : ?Text;
+    stripeSessionId : ?Text;
+    taxPercent : Float
+  };
+type ItemAttributeDef__792877199 =
+  {
+    createdAt : Timestamp__718751802;
+    id : Nat;
+    name : Text;
+    orgId : OrgId__173652313;
+    type_ : AttributeType__9214698;
+    values : [Text]
+  };
+type ItemAttribute___951269813 =
+  {attributeId : Text; name : Text; value : Text};
+type ItemMaster__138463855 =
+  {
+    attributes : [ItemAttribute___951269813];
+    barcode : Text;
+    categoryId : ?Nat;
+    categoryName : Text;
+    createdAt : Timestamp__718751802;
+    description : Text;
+    enableBatch : Bool;
+    enableSerial : Bool;
+    enableShelfLife : Bool;
+    hsnCode : Text;
+    id : Nat;
+    itemCode : Text;
+    name : Text;
+    orgId : OrgId__173652313;
+    partNumber : Text;
+    rate : Float;
+    taxPct : Float;
+    uomId : ?Nat;
+    uomName : Text
+  };
+type LeadId__315745129 = Nat;
+type LeadId__368371629 = Nat;
+type LeadSource__449839421 =
+  {
+    #csv;
+    #exportindia;
+    #facebookPage;
+    #globallinker;
+    #google;
+    #indiamart;
+    #justdial;
+    #manual;
+    #metaAds;
+    #tradeindia;
+    #websiteWebhook
+  };
+type LeadStatus__621469780 = {#converted; #lost; #new_; #qualified};
+type LeadStatus__81447617 = {#converted; #lost; #new_; #qualified};
+type Lead__1033758493 =
+  {
+    contactId : ContactId__836243698;
+    createdAt : Timestamp__1040901096;
+    createdBy : Principal;
+    id : LeadId__315745129;
+    orgId : OrgId__606152740;
+    score : Nat;
+    status : LeadStatus__81447617;
+    updatedAt : Timestamp__1040901096
+  };
+type Leaf__809889148<K, V> = {data : Data__791452850<K, V>};
+type LineItem__555589752 =
+  {description : Text; quantity : Float; rateInCents : Nat};
+type LineItem__862742565 =
+  {
+    description : Text;
+    qty : Float;
+    rate : Float;
+    taxPct : Float;
+    total : Float
+  };
+type LineItem__887887960 =
+  {
+    description : Text;
+    qty : Float;
+    rate : Float;
+    taxPct : Float;
+    total : Float
+  };
+type List__415060402<T> = List__790383201<T>;
+type List__790383201<T> =
+  {
+    var blockIndex : Nat__490723111;
+    var blocks : [var [var ?T]];
+    var elementIndex : Nat__490723111
+  };
+type Location__390692219 =
+  {
+    createdAt : Timestamp__111540133;
+    email : Text;
+    id : Nat;
+    locationCode : Text;
+    locationName : Text;
+    orgId : OrgId__804953013;
+    state : Text
+  };
+type MachineId__261059872 = Nat;
+type MachineStatus__699144789 = {#active; #inactive; #maintenance};
+type Machine__605649537 =
+  {
+    capacity : Float;
+    capacityUnit : Text;
+    code : Text;
+    createdAt : Timestamp__311889926;
+    enabled : Bool;
+    id : MachineId__261059872;
+    lastMaintenance : ?Timestamp__311889926;
+    location : Text;
+    machineType : Text;
+    name : Text;
+    orgId : OrgId__398325135;
+    status : MachineStatus__699144789
+  };
+type ManufacturingOrderId__242718690 = Nat;
+type ManufacturingOrder__792502266 =
+  {
+    completedQty : Float;
+    createdAt : Timestamp__311889926;
+    dueDate : Timestamp__311889926;
+    enabled : Bool;
+    id : ManufacturingOrderId__242718690;
+    orgId : OrgId__398325135;
+    quantity : Float;
+    startDate : Timestamp__311889926;
+    status : MoStatus__741432283;
+    workOrderId : WorkOrderId__122207733
+  };
+type Map__158565046<K, V> = Map__297112838<K, V>;
+type Map__297112838<K, V> =
+  {var root : Node__46230540<K, V>; var size : Nat__490723111};
+type Map__605269027<K, V> = Map__158565046<K, V>;
+type MoStatus__741432283 =
+  {#cancelled; #completed; #draft; #inProgress; #released};
+type ModuleVisibilityEntry__755556282 = {enabled : Bool; moduleName : Text};
+type Nat__490723111 = Nat__920180692;
+type Nat__920180692 = Nat;
+type Node__46230540<K, V> =
+  {#internal : Internal__8484328<K, V>; #leaf : Leaf__809889148<K, V>};
+type NoteId__382310931 = Nat;
+type NoteStatus__429059857 = {#applied; #approved; #cancelled; #draft};
+type NoteStatus__884245468 = {#applied; #approved; #cancelled; #draft};
+type NotifType__852808086 = {#B2BSyncNotif; #GSTFiling; #Invoice; #System};
+type NotificationId__261776522 = Text;
+type Notification__264708741 =
+  {
+    createdAt : Int;
+    id : NotificationId__261776522;
+    isRead : Bool;
+    message : Text;
+    notifType : NotifType__852808086;
+    orgId : OrgId__925867626;
+    title : Text;
+    userId : Principal
+  };
+type OrgAddress__643029112 =
+  {city : Text; country : Text; postal : Text; state : Text; street : Text};
+type OrgBillingInfo__1020123740 =
+  {address : Text; logoUrl : ?Text; name : Text; taxId : ?Text};
+type OrgConfiguration__318502513 =
+  {
+    currency : Text;
+    dateFormat : Text;
+    enableBarcoding : Bool;
+    enableBatches : Bool;
+    enableSerialization : Bool;
+    enableShelfLife : Bool;
+    id : Nat;
+    invoiceTemplate : Text;
+    logoUrl : Text;
+    numberSeriesInvoice : Text;
+    numberSeriesPO : Text;
+    numberSeriesSO : Text;
+    orgId : OrgId__505192327;
+    paymentGatewayKey : Text;
+    paymentGatewayType : Text;
+    taxAdjustment : Float;
+    trackInventory : Bool;
+    updatedAt : Timestamp__418869992
+  };
+type OrgContactPerson__711409693 = {email : Text; name : Text; phone : Text};
+type OrgId__159154672 = Nat;
+type OrgId__163716102 = OrgId__505192327;
+type OrgId__173652313 = Nat;
+type OrgId__263205227 = OrgId__97722794;
+type OrgId__277651477 = OrgId__97722794;
+type OrgId__335245168 = Nat;
+type OrgId__36936338 = OrgId__97722794;
+type OrgId__398325135 = OrgId__97722794;
+type OrgId__458696715 = OrgId__97722794;
+type OrgId__495976723 = Nat;
+type OrgId__505192327 = Nat;
+type OrgId__606152740 = OrgId__97722794;
+type OrgId__639847965 = OrgId__97722794;
+type OrgId__648938842 = OrgId__97722794;
+type OrgId__727327555 = Nat;
+type OrgId__783287657 = OrgId__97722794;
+type OrgId__804953013 = Nat;
+type OrgId__903366708 = Nat;
+type OrgId__925867626 = Text;
+type OrgId__97722794 = Nat;
+type OrgMember__1020909798 =
+  {
+    invitedBy : ?Principal;
+    joinedAt : Timestamp__323235793;
+    principal : Principal;
+    role : OrgRole__651022406
+  };
+type OrgRole__651022406 = {#admin; #member; #owner};
+type OrgSubscription__1027805542 =
+  {
+    cancelAtPeriodEnd : Bool;
+    currentPeriodEnd : ?Timestamp__323235793;
+    currentPeriodStart : ?Timestamp__323235793;
+    orgId : OrgId__458696715;
+    plan : PlanTier__354397017;
+    status : SubscriptionStatus__634662544;
+    stripeCustomerId : ?Text;
+    stripeSubscriptionId : ?Text;
+    trialEnd : ?Timestamp__323235793
+  };
+type OrgType__289078641 = {#company; #individual};
+type Org__270805828 =
+  {
+    address : ?OrgAddress__643029112;
+    contactPerson : ?OrgContactPerson__711409693;
+    createdAt : Timestamp__323235793;
+    createdBy : Principal;
+    gstin : ?Text;
+    id : OrgId__458696715;
+    name : Text;
+    orgType : OrgType__289078641;
+    pan : ?Text;
+    slug : Text;
+    timezone : Text
+  };
+type Overtime__209591150 =
+  {
+    amount : Float;
+    createdAt : Int;
+    date : Text;
+    employeeId : Nat;
+    hours : Float;
+    id : Nat;
+    notes : Text;
+    orgId : Nat;
+    rate : Float
+  };
+type PaymentMode__336291118 = {#bank; #cash; #cheque; #upi};
+type PaymentMode__444036831 = {#bank; #card; #cash; #cheque; #online; #upi};
+type PayrollStatus__847290506 = {#paid; #pending; #processed};
+type Payroll__215164202 =
+  {
+    createdAt : Int;
+    id : Nat;
+    month : Nat;
+    orgId : Nat;
+    processedAt : Int;
+    status : PayrollStatus__847290506;
+    totalDeductions : Float;
+    totalEmployees : Nat;
+    totalGrossPay : Float;
+    totalNetPay : Float;
+    year : Nat
+  };
+type PendingInvite__792168496 =
+  {
+    createdAt : Timestamp__323235793;
+    email : Text;
+    id : Nat;
+    invitedBy : Principal;
+    orgId : OrgId__458696715;
+    role : OrgRole__651022406
+  };
+type Permission__1045026666 =
+  {
+    canCreate : Bool;
+    canDelete : Bool;
+    canEdit : Bool;
+    canView : Bool;
+    createdAt : Timestamp__916063638;
+    id : Nat;
+    module_ : Text;
+    orgId : OrgId__495976723;
+    roleId : Nat;
+    roleName : Text;
+    screen : Text
+  };
+type PfEsiConfig__860431030 =
+  {
+    createdAt : Int;
+    effectiveFrom : Text;
+    esiRate : Float;
+    id : Nat;
+    insurancePremiumPerEmployee : Float;
+    orgId : Nat;
+    pfEmployeeRate : Float;
+    pfEmployerRate : Float
+  };
+type PlanTier__354397017 = {#enterprise; #free; #pro};
+type PoStatus__901720748 = {#approved; #billed; #draft; #sent};
+type PortalApiKey__802698763 =
+  {
+    apiKey : Text;
+    lastSynced : ?Timestamp__601572365;
+    orgId : OrgId__639847965;
+    portal : PortalType__356240263;
+    syncStatus : SyncStatus__871967550
+  };
+type PortalCompany__893705654 =
+  {
+    adminDesignation : Text;
+    adminEmail : Text;
+    adminName : Text;
+    adminPhone : Text;
+    city : Text;
+    companyType : Text;
+    createdAt : Int;
+    gst : ?Text;
+    id : Text;
+    industry : Text;
+    logoUrl : ?Text;
+    name : Text;
+    passwordHash : Text;
+    pin : Text;
+    state : Text;
+    street : Text;
+    website : ?Text
+  };
+type PortalEmployee__987926657 =
+  {
+    companyId : Text;
+    createdAt : Int;
+    department : Text;
+    designation : Text;
+    email : Text;
+    employeeId : Text;
+    isActive : Bool;
+    modulePermissions : [(Text, Bool)];
+    name : Text;
+    passwordHash : Text
+  };
+type PortalGroup__529007194 =
+  {
+    contactEmail : Text;
+    createdAt : Int;
+    description : Text;
+    groupType : Text;
+    headName : Text;
+    id : Text;
+    name : Text;
+    passwordHash : Text;
+    phone : Text
+  };
+type PortalIndividual__518178505 =
+  {
+    createdAt : Int;
+    email : Text;
+    fullName : Text;
+    id : Text;
+    passwordHash : Text;
+    phone : Text;
+    profilePhotoUrl : ?Text
+  };
+type PortalTask__998695318 =
+  {
+    assignedTo : Text;
+    companyId : Text;
+    createdAt : Int;
+    createdBy : Text;
+    description : Text;
+    dueDate : Int;
+    fileUrl : ?Text;
+    id : Text;
+    priority : TaskPriority__1056168599;
+    status : TaskStatus__701352454;
+    title : Text;
+    updatedAt : Int
+  };
+type PortalType__356240263 =
+  {
+    #exportindia;
+    #facebookPage;
+    #globallinker;
+    #google;
+    #indiamart;
+    #justdial;
+    #metaAds;
+    #tradeindia;
+    #websiteWebhook
+  };
+type PosItem__521474919 =
+  {
+    name : Text;
+    productId : Text;
+    qty : Float;
+    rate : Float;
+    taxPct : Float;
+    total : Float
+  };
+type PosTransaction__804352145 =
+  {
+    createdAt : Timestamp__871875848;
+    customerId : ?Nat;
+    customerName : ?Text;
+    id : Nat;
+    items : [PosItem__521474919];
+    orgId : OrgId__903366708;
+    paymentMode : PaymentMode__444036831;
+    subtotal : Float;
+    taxTotal : Float;
+    total : Float
+  };
+type ProductId__3056439 = Nat;
+type Product__330061759 =
+  {
+    categoryId : ?CategoryId__954569392;
+    createdAt : Timestamp__585266649;
+    createdBy : Principal;
+    description : Text;
+    hsnCode : Text;
+    id : ProductId__3056439;
+    name : Text;
+    orgId : OrgId__277651477;
+    partNumber : Text;
+    rate : Float;
+    stockQty : Nat;
+    taxPercent : Nat;
+    unit : Text
+  };
+type ProductionPlanId__347994422 = Nat;
+type ProductionPlan__371090713 =
+  {
+    actualQty : Float;
+    createdAt : Timestamp__311889926;
+    enabled : Bool;
+    id : ProductionPlanId__347994422;
+    orgId : OrgId__398325135;
+    period : Text;
+    status : Text;
+    targetQty : Float;
+    workOrderIds : [WorkOrderId__122207733]
+  };
+type PurchaseBill__146696130 =
+  {
+    amountPaid : Float;
+    billNumber : Text;
+    createdAt : Timestamp__429721593;
+    dueDate : Timestamp__429721593;
+    id : Nat;
+    lineItems : [LineItem__887887960];
+    notes : Text;
+    orgId : OrgId__727327555;
+    poId : ?Nat;
+    status : BillStatus__889896358;
+    subtotal : Float;
+    supplierId : Nat;
+    supplierName : Text;
+    taxTotal : Float;
+    total : Float
+  };
+type PurchaseCreditNote__839637396 =
+  {
+    amount : Float;
+    billId : Nat;
+    createdAt : Timestamp__429721593;
+    creditNumber : Text;
+    id : Nat;
+    orgId : OrgId__727327555;
+    reason : Text;
+    status : NoteStatus__884245468;
+    supplier : Text
+  };
+type PurchaseDebitNote__255139745 =
+  {
+    amount : Float;
+    billId : Nat;
+    createdAt : Timestamp__429721593;
+    debitNumber : Text;
+    id : Nat;
+    orgId : OrgId__727327555;
+    reason : Text;
+    status : NoteStatus__884245468;
+    supplier : Text
+  };
+type PurchaseOrder__593248081 =
+  {
+    createdAt : Timestamp__429721593;
+    id : Nat;
+    lineItems : [LineItem__887887960];
+    notes : Text;
+    orgId : OrgId__727327555;
+    poNumber : Text;
+    status : PoStatus__901720748;
+    subtotal : Float;
+    supplierId : Nat;
+    supplierName : Text;
+    taxTotal : Float;
+    total : Float
+  };
+type PurchaseReturn__595914385 =
+  {
+    billId : Nat;
+    createdAt : Timestamp__429721593;
+    id : Nat;
+    items : [ReturnItem__826805163];
+    orgId : OrgId__727327555;
+    reason : Text;
+    returnNumber : Text;
+    status : ReturnStatus__843230054;
+    supplier : Text;
+    totalAmount : Float
+  };
+type QcResult__79062182 = {#fail; #pass};
+type QualityControlId__313196194 = Nat;
+type QualityControl__981607105 =
+  {
+    createdAt : Timestamp__311889926;
+    defects : [Text];
+    enabled : Bool;
+    failQty : Float;
+    id : QualityControlId__313196194;
+    inspectionDate : Timestamp__311889926;
+    inspector : Text;
+    moId : ManufacturingOrderId__242718690;
+    notes : Text;
+    orgId : OrgId__398325135;
+    passQty : Float;
+    result : QcResult__79062182
+  };
+type Quotation__658056772 =
+  {
+    createdAt : Timestamp__871875848;
+    customerId : Nat;
+    customerName : Text;
+    id : Nat;
+    lineItems : [LineItem__862742565];
+    notes : Text;
+    orgId : OrgId__903366708;
+    quoteNumber : Text;
+    status : QuoteStatus__690785618;
+    subtotal : Float;
+    taxTotal : Float;
+    total : Float;
+    validUntil : Timestamp__871875848
+  };
+type QuoteStatus__690785618 = {#accepted; #draft; #expired; #rejected; #sent};
+type RawMaterialRequisition__900601199 =
+  {
+    approvedBy : Text;
+    createdAt : Timestamp__311889926;
+    enabled : Bool;
+    id : RequisitionId__224423439;
+    items : [RequisitionItem__705057566];
+    moId : ManufacturingOrderId__242718690;
+    orgId : OrgId__398325135;
+    requestedBy : Text;
+    status : Text
+  };
+type ReconciliationStatus__668743946 = {#reconciled : Text; #unreconciled};
+type ReqItemStatus__203778692 = {#issued; #partial; #pending};
+type RequisitionId__224423439 = Nat;
+type RequisitionItem__705057566 =
+  {
+    issuedQty : Float;
+    itemId : Nat;
+    requiredQty : Float;
+    status : ReqItemStatus__203778692
+  };
+type ReturnItem__533080044 =
+  {name : Text; productId : Text; qty : Float; rate : Float};
+type ReturnItem__826805163 =
+  {name : Text; productId : Text; qty : Float; rate : Float};
+type ReturnStatus__505465408 = {#approved; #cancelled; #completed; #draft};
+type ReturnStatus__843230054 = {#approved; #cancelled; #completed; #draft};
+type RewardType__376015727 = {#FixedAmount; #Percentage};
+type RoleStatus__695902352 = {#Active; #Inactive};
+type Role__715317277 =
+  {
+    createdAt : Timestamp__916063638;
+    description : Text;
+    id : Nat;
+    orgId : OrgId__495976723;
+    roleName : Text;
+    screens : [Text];
+    status : RoleStatus__695902352
+  };
+type RoutingOperationId__727897764 = Nat;
+type RoutingOperation__945866598 =
+  {
+    code : Text;
+    costPerHour : Float;
+    createdAt : Timestamp__311889926;
+    description : Text;
+    enabled : Bool;
+    id : RoutingOperationId__727897764;
+    machineId : MachineId__261059872;
+    name : Text;
+    orgId : OrgId__398325135;
+    sequence : Nat;
+    standardTime : Float
+  };
+type SalarySlip__239122133 =
+  {
+    advanceDeduction : Float;
+    basicSalary : Float;
+    createdAt : Int;
+    da : Float;
+    employeeId : Nat;
+    esiDeduction : Float;
+    hra : Float;
+    id : Nat;
+    month : Nat;
+    netPay : Float;
+    orgId : Nat;
+    otherAllowances : Float;
+    pfDeduction : Float;
+    status : SlipStatus__1012523867;
+    tdsDeduction : Float;
+    year : Nat
+  };
+type SaleCreditNote__778229765 =
+  {
+    amount : Float;
+    createdAt : Timestamp__871875848;
+    creditNumber : Text;
+    customer : Text;
+    id : Nat;
+    invoiceId : Nat;
+    orgId : OrgId__903366708;
+    reason : Text;
+    status : NoteStatus__429059857
+  };
+type SaleDebitNote__96504895 =
+  {
+    amount : Float;
+    createdAt : Timestamp__871875848;
+    customer : Text;
+    debitNumber : Text;
+    id : Nat;
+    invoiceId : Nat;
+    orgId : OrgId__903366708;
+    reason : Text;
+    status : NoteStatus__429059857
+  };
+type SaleReturn__392636916 =
+  {
+    createdAt : Timestamp__871875848;
+    customer : Text;
+    id : Nat;
+    invoiceId : Nat;
+    items : [ReturnItem__533080044];
+    orgId : OrgId__903366708;
+    reason : Text;
+    returnNumber : Text;
+    status : ReturnStatus__505465408;
+    totalAmount : Float
+  };
+type SalesOrder__473470296 =
+  {
+    createdAt : Timestamp__871875848;
+    customerId : Nat;
+    customerName : Text;
+    id : Nat;
+    lineItems : [LineItem__862742565];
+    notes : Text;
+    orgId : OrgId__903366708;
+    soNumber : Text;
+    status : SoStatus__901732899;
+    subtotal : Float;
+    taxTotal : Float;
+    total : Float
+  };
+type SchemeStatus__852034722 = {#Active; #Inactive};
+type ScrapRecordId__271205111 = Nat;
+type ScrapRecord__725198110 =
+  {
+    createdAt : Timestamp__311889926;
+    date : Timestamp__311889926;
+    enabled : Bool;
+    id : ScrapRecordId__271205111;
+    machineId : MachineId__261059872;
+    moId : ManufacturingOrderId__242718690;
+    orgId : OrgId__398325135;
+    recordedBy : Text;
+    scrapQty : Float;
+    scrapReason : Text;
+    scrapValue : Float
+  };
+type ShipmentStatus__784827062 =
+  {
+    #cancelled;
+    #delivered;
+    #inTransit;
+    #outForDelivery;
+    #pending;
+    #picked;
+    #returned
+  };
+type Shipment__22358172 =
+  {
+    consigneeAddress : Text;
+    consigneeName : Text;
+    consigneePhone : Text;
+    courierProvider : CourierProvider__188577610;
+    createdAt : Int;
+    deliveredAt : ?Int;
+    dimensions : ?Text;
+    dispatchedAt : ?Int;
+    docId : ?Nat;
+    id : Nat;
+    orderId : ?Nat;
+    orgId : OrgId__783287657;
+    status : ShipmentStatus__784827062;
+    trackingNo : ?Text;
+    transporterName : ?Text;
+    transporterPhone : ?Text;
+    updatedAt : Int;
+    weight : ?Float
+  };
+type ShopFloorControl__759008215 =
+  {
+    createdAt : Timestamp__311889926;
+    enabled : Bool;
+    endTime : ?Timestamp__311889926;
+    id : ShopFloorId__578319201;
+    machineId : MachineId__261059872;
+    notes : Text;
+    operationId : RoutingOperationId__727897764;
+    operatorName : Text;
+    orgId : OrgId__398325135;
+    quantity : Float;
+    startTime : Timestamp__311889926;
+    status : Text;
+    workOrderId : WorkOrderId__122207733
+  };
+type ShopFloorId__578319201 = Nat;
+type SlipStatus__1012523867 = {#draft; #generated; #paid};
+type SoStatus__901732899 = {#cancelled; #confirmed; #draft; #invoiced};
+type StockLevel__274659008 =
+  {
+    createdAt : Timestamp__718751802;
+    id : Nat;
+    itemId : Nat;
+    itemName : Text;
+    locationId : ?Nat;
+    locationName : Text;
+    orgId : OrgId__173652313;
+    quantityOnHand : Float;
+    reorderLevel : Float
+  };
+type StripeConfig__765137762 = {allowedCountries : [Text]; secretKey : Text};
+type StripeConfiguration__96897619 =
+  {allowedCountries : [Text]; secretKey : Text};
+type SubscriptionStatus__634662544 =
+  {#active; #canceled; #incomplete; #pastDue; #trialing};
+type SupplierPayment__113093765 =
+  {
+    amount : Float;
+    billId : ?Nat;
+    createdAt : Timestamp__429721593;
+    id : Nat;
+    isAdvance : Bool;
+    orgId : OrgId__727327555;
+    paymentDate : Timestamp__429721593;
+    paymentMode : PaymentMode__336291118;
+    reference : Text;
+    supplierId : Nat
+  };
+type SyncRecord__224713165 =
+  {
+    duplicates : Nat;
+    errorMsg : ?Text;
+    newLeads : Nat;
+    portal : PortalType__356240263;
+    status : {#failed; #success};
+    timestamp : Timestamp__601572365
+  };
+type SyncStatus__871967550 = {#failed; #idle; #success; #syncing};
+type TargetMetric__393851179 = {#NewCustomers; #Revenue; #Units};
+type TaskPriority__1056168599 = {#high; #low; #medium};
+type TaskStatus__701352454 = {#completed; #inProgress; #pending};
+type Timestamp__1040901096 = Timestamp__301639476;
+type Timestamp__111540133 = Int;
+type Timestamp__236932864 = Int;
+type Timestamp__301639476 = Int;
+type Timestamp__311889926 = Timestamp__301639476;
+type Timestamp__323235793 = Timestamp__301639476;
+type Timestamp__418869992 = Int;
+type Timestamp__429721593 = Int;
+type Timestamp__585266649 = Timestamp__301639476;
+type Timestamp__601572365 = Timestamp__301639476;
+type Timestamp__632452311 = Timestamp__301639476;
+type Timestamp__718751802 = Int;
+type Timestamp__871875848 = Int;
+type Timestamp__916063638 = Int;
+type Timestamp__948113585 = Timestamp__301639476;
+type Timestamp__974734513 = Int;
+type TrafficEvent__183860688 =
+  {
+    id : Text;
+    orgId : Text;
+    page : Text;
+    referrer : Text;
+    sessionId : Text;
+    sourceType : TrafficSource__943814298;
+    timestamp : Int;
+    userId : Text
+  };
+type TrafficSource__943814298 = {#direct; #external; #internal};
+type TransactionCategory__120004383 =
+  {#contractorFees; #equipment; #other; #revenue; #software; #travel};
+type Transaction__367285679 =
+  {
+    amount : Int;
+    category : TransactionCategory__120004383;
+    createdAt : Timestamp__948113585;
+    createdBy : Principal;
+    date : Timestamp__948113585;
+    description : Text;
+    id : Nat;
+    orgId : OrgId__36936338;
+    reconciliation : ReconciliationStatus__668743946
+  };
+type UnitOfMeasure__208545152 =
+  {
+    baseUnit : Text;
+    conversionFactor : Float;
+    createdAt : Timestamp__718751802;
+    id : Nat;
+    name : Text;
+    orgId : OrgId__173652313;
+    symbol : Text
+  };
+type UserProfile__1030728437 = {email : ?Text; name : Text};
+type UserRoleAssignment__309637644 =
+  {
+    assignedAt : Timestamp__916063638;
+    id : Nat;
+    orgId : OrgId__495976723;
+    roleId : Nat;
+    roleName : Text;
+    userId : Principal
+  };
+type UserRole__1054455867 = {#admin; #guest; #user};
+type VoucherStatus__51991877 = {#approved; #pending};
+type VoucherType__619321294 = {#meal; #other; #travel};
+type Voucher__215607693 =
+  {
+    amount : Float;
+    createdAt : Int;
+    date : Text;
+    employeeId : Nat;
+    id : Nat;
+    notes : Text;
+    orgId : Nat;
+    status : VoucherStatus__51991877;
+    voucherType : VoucherType__619321294
+  };
+type WorkOrderId__122207733 = Nat;
+type WorkOrderStatus__765906966 =
+  {#cancelled; #completed; #inProgress; #planned};
+type WorkOrder__953078647 =
+  {
+    actualEnd : ?Timestamp__311889926;
+    actualStart : ?Timestamp__311889926;
+    bomId : BomId__72324451;
+    createdAt : Timestamp__311889926;
+    enabled : Bool;
+    id : WorkOrderId__122207733;
+    notes : Text;
+    orgId : OrgId__398325135;
+    plannedEnd : Timestamp__311889926;
+    plannedStart : Timestamp__311889926;
+    quantity : Float;
+    status : WorkOrderStatus__765906966
+  };
+actor {
+  stable accessControlState :
+    {
+      var adminAssigned : Bool;
+      userRoles : Map__605269027<Principal, UserRole__1054455867>
+    };
+  stable b2bApiKeys :
+    {
+      var root :
+        Node__46230540<(OrgId__639847965, PortalType__356240263),
+                        PortalApiKey__802698763>;
+      var size : Nat__490723111
+    };
+  stable b2bExtLeads :
+    {
+      var blockIndex : Nat__490723111;
+      var blocks : [var [var ?ExtendedLead__591610434]];
+      var elementIndex : Nat__490723111
+    };
+  stable b2bSyncHist :
+    {
+      var blockIndex : Nat__490723111;
+      var blocks : [var [var ?(OrgId__639847965, SyncRecord__224713165)]];
+      var elementIndex : Nat__490723111
+    };
+  stable billing :
+    {
+      var blockIndex : Nat__490723111;
+      var blocks : [var [var ?BillingEntry__693834859]];
+      var elementIndex : Nat__490723111
+    };
+  stable budgets :
+    {
+      var blockIndex : Nat__490723111;
+      var blocks : [var [var ?Budget__169032319]];
+      var elementIndex : Nat__490723111
+    };
+  stable categories :
+    {
+      var root : Node__46230540<CategoryId__954569392, Category__1047630155>;
+      var size : Nat__490723111
+    };
+  stable crmContacts :
+    {
+      var blockIndex : Nat__490723111;
+      var blocks : [var [var ?Contact__147242489]];
+      var elementIndex : Nat__490723111
+    };
+  stable customerReceipts :
+    {
+      var root : Node__46230540<Nat, CustomerReceipt__150950380>;
+      var size : Nat__490723111
+    };
+  stable dealNotes :
+    {
+      var blockIndex : Nat__490723111;
+      var blocks : [var [var ?DealNote__740770979]];
+      var elementIndex : Nat__490723111
+    };
+  stable dealStageHistory :
+    {
+      var blockIndex : Nat__490723111;
+      var blocks : [var [var ?DealStageEvent__340942422]];
+      var elementIndex : Nat__490723111
+    };
+  stable deals :
+    {
+      var blockIndex : Nat__490723111;
+      var blocks : [var [var ?Deal__868150648]];
+      var elementIndex : Nat__490723111
+    };
+  stable erpBoms :
+    {
+      var root : Node__46230540<Nat, BillOfMaterial__815795589>;
+      var size : Nat__490723111
+    };
+  stable erpCops :
+    {
+      var root : Node__46230540<Nat, CostOfProduction__133698274>;
+      var size : Nat__490723111
+    };
+  stable erpFgs :
+    {
+      var root : Node__46230540<Nat, FinishedGood__779369078>;
+      var size : Nat__490723111
+    };
+  stable erpMachines :
+    {
+      var root : Node__46230540<Nat, Machine__605649537>;
+      var size : Nat__490723111
+    };
+  stable erpModuleEnabled :
+    {var root : Node__46230540<Nat, Bool>; var size : Nat__490723111};
+  stable erpMos :
+    {
+      var root : Node__46230540<Nat, ManufacturingOrder__792502266>;
+      var size : Nat__490723111
+    };
+  stable erpPlans :
+    {
+      var root : Node__46230540<Nat, ProductionPlan__371090713>;
+      var size : Nat__490723111
+    };
+  stable erpQcs :
+    {
+      var root : Node__46230540<Nat, QualityControl__981607105>;
+      var size : Nat__490723111
+    };
+  stable erpReqs :
+    {
+      var root : Node__46230540<Nat, RawMaterialRequisition__900601199>;
+      var size : Nat__490723111
+    };
+  stable erpRoutings :
+    {
+      var root : Node__46230540<Nat, RoutingOperation__945866598>;
+      var size : Nat__490723111
+    };
+  stable erpScraps :
+    {
+      var root : Node__46230540<Nat, ScrapRecord__725198110>;
+      var size : Nat__490723111
+    };
+  stable erpSfcs :
+    {
+      var root : Node__46230540<Nat, ShopFloorControl__759008215>;
+      var size : Nat__490723111
+    };
+  stable erpWorkOrders :
+    {
+      var root : Node__46230540<Nat, WorkOrder__953078647>;
+      var size : Nat__490723111
+    };
+  stable finCategories :
+    {
+      var root : Node__46230540<Text, FinanceCategory__400503701>;
+      var size : Nat__490723111
+    };
+  stable groups_ :
+    {
+      var root : Node__46230540<Nat, Group___740618420>;
+      var size : Nat__490723111
+    };
+  stable gstRefunds :
+    {
+      var root : Node__46230540<Nat, GstRefundRequest__762416715>;
+      var size : Nat__490723111
+    };
+  stable gstReturns :
+    {
+      var root : Node__46230540<GstReturnId__236186512, GstReturn__404560024>;
+      var size : Nat__490723111
+    };
+  stable hrAdvances :
+    {
+      var root : Node__46230540<Nat, Advance__818835540>;
+      var size : Nat__490723111
+    };
+  stable hrAttendance :
+    {
+      var root : Node__46230540<Nat, Attendance__373950484>;
+      var size : Nat__490723111
+    };
+  stable hrEmployees :
+    {
+      var root : Node__46230540<Nat, Employee__302625356>;
+      var size : Nat__490723111
+    };
+  stable hrOvertimes :
+    {
+      var root : Node__46230540<Nat, Overtime__209591150>;
+      var size : Nat__490723111
+    };
+  stable hrPayrolls :
+    {
+      var root : Node__46230540<Nat, Payroll__215164202>;
+      var size : Nat__490723111
+    };
+  stable hrPfEsi :
+    {
+      var root : Node__46230540<Nat, PfEsiConfig__860431030>;
+      var size : Nat__490723111
+    };
+  stable hrSlips :
+    {
+      var root : Node__46230540<Nat, SalarySlip__239122133>;
+      var size : Nat__490723111
+    };
+  stable hrVouchers :
+    {
+      var root : Node__46230540<Nat, Voucher__215607693>;
+      var size : Nat__490723111
+    };
+  stable hsnSacCodes :
+    {
+      var root : Node__46230540<Text, HsnSacCode__981387141>;
+      var size : Nat__490723111
+    };
+  stable incentiveSchemes :
+    {
+      var root : Node__46230540<Nat, IncentiveScheme__778745207>;
+      var size : Nat__490723111
+    };
+  stable interactionNotes :
+    {
+      var blockIndex : Nat__490723111;
+      var blocks : [var [var ?InteractionNote__757799067]];
+      var elementIndex : Nat__490723111
+    };
+  stable invCategories :
+    {
+      var root : Node__46230540<Nat, InventoryCategory__737440833>;
+      var size : Nat__490723111
+    };
+  stable invites :
+    {
+      var blockIndex : Nat__490723111;
+      var blocks : [var [var ?PendingInvite__792168496]];
+      var elementIndex : Nat__490723111
+    };
+  stable invoices :
+    {
+      var root : Node__46230540<InvoiceId__804954786, Invoice__727499845>;
+      var size : Nat__490723111
+    };
+  stable itemAttributes :
+    {
+      var root : Node__46230540<Nat, ItemAttributeDef__792877199>;
+      var size : Nat__490723111
+    };
+  stable itemMasters :
+    {
+      var root : Node__46230540<Nat, ItemMaster__138463855>;
+      var size : Nat__490723111
+    };
+  stable leads :
+    {
+      var blockIndex : Nat__490723111;
+      var blocks : [var [var ?Lead__1033758493]];
+      var elementIndex : Nat__490723111
+    };
+  stable locations :
+    {
+      var root : Node__46230540<Nat, Location__390692219>;
+      var size : Nat__490723111
+    };
+  stable members :
+    {
+      var root :
+        Node__46230540<OrgId__458696715,
+                        List__415060402<OrgMember__1020909798>>;
+      var size : Nat__490723111
+    };
+  stable moduleVisibility :
+    {
+      var root :
+        Node__46230540<Nat, List__415060402<ModuleVisibilityEntry__755556282>>;
+      var size : Nat__490723111
+    };
+  stable nextAssignmentId : {var value : Nat};
+  stable nextAttrId : {var value : Nat};
+  stable nextB2bContactId : {var value : Nat};
+  stable nextB2bLeadId : {var value : Nat};
+  stable nextBillId : {var value : Nat};
+  stable nextBillingId : {var value : Nat};
+  stable nextBomId : {var value : Nat};
+  stable nextBudgetId : {var value : Nat};
+  stable nextCategoryId : {var value : Nat};
+  stable nextConfigId : {var value : Nat};
+  stable nextContactId : {var value : Nat};
+  stable nextCopId : {var value : Nat};
+  stable nextCreditNoteId : {var value : Nat};
+  stable nextDealId : {var value : Nat};
+  stable nextDebitNoteId : {var value : Nat};
+  stable nextFgId : {var value : Nat};
+  stable nextFinCatTextId : {var value : Nat};
+  stable nextGroupId : {var value : Nat};
+  stable nextGstReturnId : {var value : Nat};
+  stable nextHrAdvId : {var value : Nat};
+  stable nextHrAttId : {var value : Nat};
+  stable nextHrEmpId : {var value : Nat};
+  stable nextHrOtId : {var value : Nat};
+  stable nextHrPayId : {var value : Nat};
+  stable nextHrPfEsiId : {var value : Nat};
+  stable nextHrSlipId : {var value : Nat};
+  stable nextHrVchId : {var value : Nat};
+  stable nextHsnSacTextId : {var value : Nat};
+  stable nextInvCatId : {var value : Nat};
+  stable nextInviteId : {var value : Nat};
+  stable nextInvoiceId : {var value : Nat};
+  stable nextItemId : {var value : Nat};
+  stable nextLeadId : {var value : Nat};
+  stable nextLocationId : {var value : Nat};
+  stable nextMachineId : {var value : Nat};
+  stable nextMoId : {var value : Nat};
+  stable nextNoteId : {var value : Nat};
+  stable nextNotifId : {var value : Nat};
+  stable nextOrgId : {var value : Nat};
+  stable nextPaymentId : {var value : Nat};
+  stable nextPermId : {var value : Nat};
+  stable nextPlanId : {var value : Nat};
+  stable nextPoId : {var value : Nat};
+  stable nextPortalCompId : {var value : Nat};
+  stable nextPortalEmpId : {var value : Nat};
+  stable nextPortalGrpId : {var value : Nat};
+  stable nextPortalIndId : {var value : Nat};
+  stable nextPortalNotifId : {var value : Nat};
+  stable nextPortalTaskId : {var value : Nat};
+  stable nextPosId : {var value : Nat};
+  stable nextProductId : {var value : Nat};
+  stable nextQcId : {var value : Nat};
+  stable nextQuoteId : {var value : Nat};
+  stable nextReceiptId : {var value : Nat};
+  stable nextRefundId : {var value : Nat};
+  stable nextReqId : {var value : Nat};
+  stable nextReturnId : {var value : Nat};
+  stable nextRoleId : {var value : Nat};
+  stable nextRoutingId : {var value : Nat};
+  stable nextSaleCreditId : {var value : Nat};
+  stable nextSaleDebitId : {var value : Nat};
+  stable nextSaleReturnId : {var value : Nat};
+  stable nextSchemeId : {var value : Nat};
+  stable nextScrapId : {var value : Nat};
+  stable nextSfcId : {var value : Nat};
+  stable nextShipmentId : {var value : Nat};
+  stable nextSoId : {var value : Nat};
+  stable nextStockId : {var value : Nat};
+  stable nextTrafficId : {var value : Nat};
+  stable nextTransactionId : {var value : Nat};
+  stable nextUomId : {var value : Nat};
+  stable nextWoId : {var value : Nat};
+  stable notifStore :
+    {
+      var root : Node__46230540<Text, Notification__264708741>;
+      var size : Nat__490723111
+    };
+  stable orgConfigurations :
+    {
+      var root : Node__46230540<OrgId__163716102, OrgConfiguration__318502513>;
+      var size : Nat__490723111
+    };
+  stable orgInfos :
+    {
+      var root : Node__46230540<OrgId__263205227, OrgBillingInfo__1020123740>;
+      var size : Nat__490723111
+    };
+  stable orgs :
+    {
+      var root : Node__46230540<OrgId__458696715, Org__270805828>;
+      var size : Nat__490723111
+    };
+  stable permissions_ :
+    {
+      var root : Node__46230540<Nat, Permission__1045026666>;
+      var size : Nat__490723111
+    };
+  stable portalCompanies :
+    {
+      var root : Node__46230540<Text, PortalCompany__893705654>;
+      var size : Nat__490723111
+    };
+  stable portalEmployees :
+    {
+      var root : Node__46230540<Text, PortalEmployee__987926657>;
+      var size : Nat__490723111
+    };
+  stable portalGroups :
+    {
+      var root : Node__46230540<Text, PortalGroup__529007194>;
+      var size : Nat__490723111
+    };
+  stable portalIndividuals :
+    {
+      var root : Node__46230540<Text, PortalIndividual__518178505>;
+      var size : Nat__490723111
+    };
+  stable portalLayouts :
+    {
+      var root : Node__46230540<Text, DashboardLayout__404710035>;
+      var size : Nat__490723111
+    };
+  stable portalNotifs :
+    {
+      var root : Node__46230540<Text, AdminNotification__516924592>;
+      var size : Nat__490723111
+    };
+  stable portalTasks :
+    {
+      var root : Node__46230540<Text, PortalTask__998695318>;
+      var size : Nat__490723111
+    };
+  stable posTransactions :
+    {
+      var root : Node__46230540<Nat, PosTransaction__804352145>;
+      var size : Nat__490723111
+    };
+  stable products :
+    {
+      var root : Node__46230540<ProductId__3056439, Product__330061759>;
+      var size : Nat__490723111
+    };
+  stable profiles :
+    {
+      var root : Node__46230540<Principal, UserProfile__1030728437>;
+      var size : Nat__490723111
+    };
+  stable purchaseBills :
+    {
+      var root : Node__46230540<Nat, PurchaseBill__146696130>;
+      var size : Nat__490723111
+    };
+  stable purchaseCreditNotes :
+    {
+      var root : Node__46230540<Nat, PurchaseCreditNote__839637396>;
+      var size : Nat__490723111
+    };
+  stable purchaseDebitNotes :
+    {
+      var root : Node__46230540<Nat, PurchaseDebitNote__255139745>;
+      var size : Nat__490723111
+    };
+  stable purchaseOrders :
+    {
+      var root : Node__46230540<Nat, PurchaseOrder__593248081>;
+      var size : Nat__490723111
+    };
+  stable purchaseReturns :
+    {
+      var root : Node__46230540<Nat, PurchaseReturn__595914385>;
+      var size : Nat__490723111
+    };
+  stable quotations :
+    {
+      var root : Node__46230540<Nat, Quotation__658056772>;
+      var size : Nat__490723111
+    };
+  stable roles_ :
+    {
+      var root : Node__46230540<Nat, Role__715317277>;
+      var size : Nat__490723111
+    };
+  stable saleCreditNotes :
+    {
+      var root : Node__46230540<Nat, SaleCreditNote__778229765>;
+      var size : Nat__490723111
+    };
+  stable saleDebitNotes :
+    {
+      var root : Node__46230540<Nat, SaleDebitNote__96504895>;
+      var size : Nat__490723111
+    };
+  stable saleReturns :
+    {
+      var root : Node__46230540<Nat, SaleReturn__392636916>;
+      var size : Nat__490723111
+    };
+  stable salesOrders :
+    {
+      var root : Node__46230540<Nat, SalesOrder__473470296>;
+      var size : Nat__490723111
+    };
+  stable shipments :
+    {
+      var root : Node__46230540<Nat, Shipment__22358172>;
+      var size : Nat__490723111
+    };
+  stable stockLevels :
+    {
+      var root : Node__46230540<Nat, StockLevel__274659008>;
+      var size : Nat__490723111
+    };
+  stable var stripeConfig : ?StripeConfiguration__96897619;
+  stable stripeMap :
+    {
+      var root : Node__46230540<OrgId__263205227, StripeConfig__765137762>;
+      var size : Nat__490723111
+    };
+  stable subs :
+    {
+      var root : Node__46230540<OrgId__458696715, OrgSubscription__1027805542>;
+      var size : Nat__490723111
+    };
+  stable supplierPayments :
+    {
+      var root : Node__46230540<Nat, SupplierPayment__113093765>;
+      var size : Nat__490723111
+    };
+  stable trafficEvents :
+    {
+      var root : Node__46230540<Text, TrafficEvent__183860688>;
+      var size : Nat__490723111
+    };
+  stable transactions :
+    {
+      var blockIndex : Nat__490723111;
+      var blocks : [var [var ?Transaction__367285679]];
+      var elementIndex : Nat__490723111
+    };
+  stable unitsOfMeasure :
+    {
+      var root : Node__46230540<Nat, UnitOfMeasure__208545152>;
+      var size : Nat__490723111
+    };
+  stable userOrgs :
+    {
+      var root : Node__46230540<Principal, List__415060402<OrgId__458696715>>;
+      var size : Nat__490723111
+    };
+  stable userRoleAssignments :
+    {
+      var root : Node__46230540<Nat, UserRoleAssignment__309637644>;
+      var size : Nat__490723111
+    }
+};

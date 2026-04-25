@@ -1,0 +1,519 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --font-display: "Space Grotesk";
+    --font-body: "DM Sans";
+    --font-mono: "Geist Mono";
+    --radius: 0.375rem;
+
+    --background: 0.98 0.008 230;
+    --foreground: 0.18 0.015 230;
+    --card: 1.0 0.004 230;
+    --card-foreground: 0.18 0.015 230;
+    --popover: 1.0 0.004 230;
+    --popover-foreground: 0.18 0.015 230;
+
+    --primary: 0.42 0.14 240;
+    --primary-foreground: 0.98 0.005 240;
+
+    --secondary: 0.95 0.01 230;
+    --secondary-foreground: 0.28 0.015 230;
+    --muted: 0.94 0.01 230;
+    --muted-foreground: 0.5 0.012 230;
+
+    --accent: 0.6 0.15 170;
+    --accent-foreground: 0.98 0.005 170;
+
+    --destructive: 0.55 0.22 25;
+    --destructive-foreground: 0.98 0.005 25;
+
+    --border: 0.9 0.008 230;
+    --input: 0.9 0.008 230;
+    --ring: 0.42 0.14 240;
+
+    --chart-1: 0.6 0.15 170;
+    --chart-2: 0.65 0.18 145;
+    --chart-3: 0.55 0.18 30;
+    --chart-4: 0.72 0.15 85;
+    --chart-5: 0.5 0.12 240;
+
+    --sidebar: 0.98 0.008 230;
+    --sidebar-foreground: 0.18 0.015 230;
+    --sidebar-primary: 0.42 0.14 240;
+    --sidebar-primary-foreground: 0.98 0.005 240;
+    --sidebar-accent: 0.6 0.15 170;
+    --sidebar-accent-foreground: 0.18 0.015 170;
+    --sidebar-border: 0.9 0.008 230;
+    --sidebar-ring: 0.42 0.14 240;
+
+    --manufacturing-in-progress: 0.58 0.18 45;
+    --manufacturing-completed: 0.6 0.15 170;
+    --manufacturing-defect: 0.55 0.22 25;
+    --manufacturing-pending: 0.72 0.12 85;
+
+    --chatbot-bubble: 0.6 0.15 170;
+    --chatbot-bubble-foreground: 0.98 0.005 170;
+
+    --wallpaper-overlay: 0.98 0.008 230;
+    --bg-custom: 0.98 0.008 230;
+  }
+
+  .dark {
+    --background: 0.13 0.02 235;
+    --foreground: 0.92 0.01 235;
+    --card: 0.17 0.022 235;
+    --card-foreground: 0.92 0.01 235;
+    --popover: 0.22 0.025 235;
+    --popover-foreground: 0.92 0.01 235;
+
+    --primary: 0.68 0.16 240;
+    --primary-foreground: 0.13 0.02 240;
+
+    --secondary: 0.21 0.025 235;
+    --secondary-foreground: 0.82 0.01 235;
+    --muted: 0.21 0.025 235;
+    --muted-foreground: 0.52 0.015 235;
+
+    --accent: 0.65 0.18 170;
+    --accent-foreground: 0.13 0.02 170;
+
+    --destructive: 0.65 0.19 22;
+    --destructive-foreground: 0.92 0.01 25;
+
+    --border: 0.26 0.022 235;
+    --input: 0.26 0.022 235;
+    --ring: 0.68 0.16 240;
+
+    --chart-1: 0.65 0.18 170;
+    --chart-2: 0.6 0.16 145;
+    --chart-3: 0.65 0.18 30;
+    --chart-4: 0.68 0.14 85;
+    --chart-5: 0.72 0.15 240;
+
+    --sidebar: 0.15 0.02 235;
+    --sidebar-foreground: 0.92 0.01 235;
+    --sidebar-primary: 0.68 0.16 240;
+    --sidebar-primary-foreground: 0.13 0.02 240;
+    --sidebar-accent: 0.65 0.18 170;
+    --sidebar-accent-foreground: 0.92 0.01 170;
+    --sidebar-border: 0.26 0.022 235;
+    --sidebar-ring: 0.68 0.16 240;
+
+    --panel-overlay: 0.05 0.01 235;
+    --panel-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+
+    --manufacturing-in-progress: 0.65 0.2 45;
+    --manufacturing-completed: 0.65 0.18 170;
+    --manufacturing-defect: 0.65 0.19 22;
+    --manufacturing-pending: 0.72 0.14 85;
+
+    --chatbot-bubble: 0.65 0.18 170;
+    --chatbot-bubble-foreground: 0.13 0.02 170;
+
+    --wallpaper-overlay: 0.13 0.02 235;
+    --bg-custom: 0.13 0.02 235;
+  }
+
+  .draft {
+    --background: 0.85 0.04 50;
+    --foreground: 0.22 0.02 50;
+    --card: 0.88 0.035 50;
+    --card-foreground: 0.22 0.02 50;
+    --popover: 0.92 0.03 50;
+    --popover-foreground: 0.22 0.02 50;
+
+    --primary: 0.58 0.08 35;
+    --primary-foreground: 0.92 0.03 50;
+
+    --secondary: 0.79 0.03 50;
+    --secondary-foreground: 0.35 0.02 50;
+    --muted: 0.79 0.03 50;
+    --muted-foreground: 0.48 0.02 50;
+
+    --accent: 0.6 0.12 170;
+    --accent-foreground: 0.92 0.03 50;
+
+    --destructive: 0.58 0.15 25;
+    --destructive-foreground: 0.92 0.03 50;
+
+    --border: 0.75 0.03 50;
+    --input: 0.75 0.03 50;
+    --ring: 0.58 0.08 35;
+
+    --chart-1: 0.6 0.12 170;
+    --chart-2: 0.55 0.1 145;
+    --chart-3: 0.52 0.1 30;
+    --chart-4: 0.65 0.1 85;
+    --chart-5: 0.62 0.08 240;
+
+    --sidebar: 0.82 0.035 50;
+    --sidebar-foreground: 0.22 0.02 50;
+    --sidebar-primary: 0.58 0.08 35;
+    --sidebar-primary-foreground: 0.92 0.03 50;
+    --sidebar-accent: 0.6 0.12 170;
+    --sidebar-accent-foreground: 0.22 0.02 50;
+    --sidebar-border: 0.75 0.03 50;
+    --sidebar-ring: 0.58 0.08 35;
+
+    --panel-overlay: 0.95 0.02 50;
+    --panel-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.1);
+
+    --manufacturing-in-progress: 0.6 0.15 45;
+    --manufacturing-completed: 0.6 0.12 170;
+    --manufacturing-defect: 0.58 0.15 25;
+    --manufacturing-pending: 0.65 0.1 85;
+
+    --chatbot-bubble: 0.6 0.12 170;
+    --chatbot-bubble-foreground: 0.92 0.03 50;
+
+    --wallpaper-overlay: 0.85 0.04 50;
+    --bg-custom: 0.85 0.04 50;
+  }
+
+  * {
+    @apply border-border;
+  }
+  html.dark {
+    color-scheme: dark;
+  }
+  body {
+    @apply bg-background text-foreground font-body antialiased;
+  }
+}
+
+@font-face {
+  font-family: "Space Grotesk";
+  src: url("/assets/fonts/SpaceGrotesk.woff2") format("woff2");
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "DM Sans";
+  src: url("/assets/fonts/DMSans.woff2") format("woff2");
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Geist Mono";
+  src: url("/assets/fonts/GeistMono.woff2") format("woff2");
+  font-display: swap;
+}
+
+@layer utilities {
+  .transition-smooth {
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+  .fade-in {
+    animation: fadeIn 0.5s ease-out;
+  }
+  .fade-in-delay-100 {
+    animation: fadeIn 0.5s ease-out 0.1s both;
+  }
+  .fade-in-delay-200 {
+    animation: fadeIn 0.5s ease-out 0.2s both;
+  }
+  .fade-in-delay-300 {
+    animation: fadeIn 0.5s ease-out 0.3s both;
+  }
+
+  .login-hero {
+    @apply flex flex-col items-center justify-center min-h-screen px-4 py-12 bg-background;
+  }
+
+  .login-headline {
+    @apply text-5xl font-bold text-foreground font-display text-center mb-2;
+  }
+
+  .login-tagline {
+    @apply text-lg text-muted-foreground text-center mb-16 max-w-2xl;
+  }
+
+  .auth-cards-grid {
+    @apply grid grid-cols-1 md:grid-cols-3 gap-6 w-full max-w-5xl;
+  }
+
+  .auth-card {
+    @apply bg-card border border-border rounded-lg p-8 transition-smooth flex flex-col items-center;
+  }
+
+  .auth-card:hover {
+    @apply border-accent/50;
+  }
+
+  .auth-card-icon {
+    @apply w-12 h-12 mb-4 text-accent;
+  }
+
+  .auth-card-title {
+    @apply text-xl font-bold text-foreground font-display text-center mb-2;
+  }
+
+  .auth-card-description {
+    @apply text-sm text-muted-foreground text-center mb-6;
+  }
+
+  .auth-card-button {
+    @apply w-full px-4 py-3 bg-accent text-accent-foreground font-semibold rounded-lg transition-smooth hover:opacity-90;
+  }
+
+  /* Multi-Role Portal Utilities */
+
+  .registration-type-selector {
+    @apply grid grid-cols-1 md:grid-cols-3 gap-4 w-full max-w-3xl;
+  }
+
+  .registration-type-card {
+    @apply bg-card border border-border rounded-lg p-6 cursor-pointer transition-smooth flex flex-col items-center text-center;
+  }
+
+  .registration-type-card:hover {
+    @apply border-primary shadow-md;
+  }
+
+  .registration-type-card.active {
+    @apply border-primary bg-primary/5;
+  }
+
+  .registration-form {
+    @apply w-full max-w-2xl space-y-6;
+  }
+
+  .form-group {
+    @apply space-y-2;
+  }
+
+  .form-label {
+    @apply text-sm font-semibold text-foreground;
+  }
+
+  .form-input {
+    @apply w-full px-4 py-2 bg-input border border-border rounded-md text-foreground text-base placeholder:text-muted-foreground transition-smooth focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent;
+  }
+
+  .form-textarea {
+    @apply w-full px-4 py-2 bg-input border border-border rounded-md text-foreground text-base placeholder:text-muted-foreground transition-smooth focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent resize-none;
+  }
+
+  .form-select {
+    @apply w-full px-4 py-2 bg-input border border-border rounded-md text-foreground text-base transition-smooth focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent;
+  }
+
+  .form-error {
+    @apply text-xs text-destructive;
+  }
+
+  .form-hint {
+    @apply text-xs text-muted-foreground;
+  }
+
+  .admin-dashboard-grid {
+    @apply grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 auto-rows-max;
+  }
+
+  .admin-widget {
+    @apply bg-card border border-border rounded-lg p-5 shadow-md transition-smooth hover:shadow-lg;
+  }
+
+  .admin-widget-title {
+    @apply text-sm font-semibold text-foreground mb-4;
+  }
+
+  .admin-widget-content {
+    @apply space-y-3;
+  }
+
+  .employee-dashboard-grid {
+    @apply grid grid-cols-1 lg:grid-cols-2 gap-4;
+  }
+
+  .task-card {
+    @apply bg-card border border-border rounded-lg p-4 transition-smooth hover:border-primary/30;
+  }
+
+  .task-card-header {
+    @apply flex items-start justify-between gap-3 mb-3;
+  }
+
+  .task-card-title {
+    @apply text-base font-semibold text-foreground;
+  }
+
+  .task-priority-badge {
+    @apply inline-flex items-center px-2 py-1 rounded text-xs font-semibold;
+  }
+
+  .task-priority-high {
+    @apply bg-destructive/10 text-destructive;
+  }
+
+  .task-priority-medium {
+    @apply bg-yellow-500/10 text-yellow-600 dark:text-yellow-400;
+  }
+
+  .task-priority-low {
+    @apply bg-primary/10 text-primary;
+  }
+
+  .task-status-select {
+    @apply px-3 py-1 bg-muted border border-border rounded text-sm font-medium text-foreground cursor-pointer transition-smooth hover:bg-muted/60;
+  }
+
+  .role-sidebar-item {
+    @apply flex items-center gap-3 px-4 py-3 text-sidebar-foreground text-sm font-medium transition-smooth rounded-md;
+  }
+
+  .role-sidebar-item.active {
+    @apply bg-sidebar-primary text-sidebar-primary-foreground;
+  }
+
+  .role-sidebar-item:hover {
+    background-color: oklch(var(--sidebar-accent) / 0.1);
+    color: oklch(var(--sidebar-accent));
+  }
+
+  .panel-slide-in {
+    animation: panelSlideIn 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  .panel-slide-out {
+    animation: panelSlideOut 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  .badge-group {
+    @apply inline-flex items-center gap-1 px-2 py-1 rounded-full text-xs font-semibold;
+    background-color: oklch(var(--sidebar-accent) / 0.2);
+    color: oklch(var(--sidebar-accent));
+  }
+
+  .notification-unread {
+    @apply before:absolute before:left-0 before:top-1/2 before:-translate-y-1/2 before:w-2 before:h-2 before:rounded-full before:bg-accent;
+  }
+
+  .status-badge-manufacturing {
+    @apply px-2 py-1 rounded-md text-xs font-semibold;
+  }
+
+  .status-in-progress {
+    background-color: oklch(var(--manufacturing-in-progress) / 0.15);
+    color: oklch(var(--manufacturing-in-progress));
+  }
+
+  .status-completed {
+    background-color: oklch(var(--manufacturing-completed) / 0.15);
+    color: oklch(var(--manufacturing-completed));
+  }
+
+  .status-defect {
+    background-color: oklch(var(--manufacturing-defect) / 0.15);
+    color: oklch(var(--manufacturing-defect));
+  }
+
+  .status-pending {
+    background-color: oklch(var(--manufacturing-pending) / 0.15);
+    color: oklch(var(--manufacturing-pending));
+  }
+
+  .chatbot-bubble {
+    @apply fixed bottom-6 right-6 w-16 h-16 rounded-full shadow-lg cursor-pointer flex items-center justify-center transition-smooth;
+    background-color: oklch(var(--chatbot-bubble));
+    color: oklch(var(--chatbot-bubble-foreground));
+  }
+
+  .chatbot-bubble:hover {
+    @apply shadow-xl scale-110;
+  }
+
+  .chatbot-pulse {
+    animation: chatbotPulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+  }
+
+  .widget-tile-small {
+    @apply bg-card rounded-lg border border-border p-3;
+  }
+
+  .widget-tile-medium {
+    @apply bg-card rounded-lg border border-border p-4;
+  }
+
+  .widget-tile-large {
+    @apply bg-card rounded-lg border border-border p-6;
+  }
+
+  .wallpaper-container {
+    @apply fixed inset-0 -z-10;
+    background-color: oklch(var(--bg-custom));
+  }
+
+  .wallpaper-overlay {
+    @apply absolute inset-0;
+    background-color: oklch(var(--wallpaper-overlay) / 0.95);
+  }
+
+  .widget-sm {
+    @apply bg-card rounded-xl border border-border p-4;
+    min-height: 120px;
+  }
+
+  .widget-md {
+    @apply bg-card rounded-xl border border-border p-5;
+    min-height: 200px;
+  }
+
+  .widget-lg {
+    @apply bg-card rounded-xl border border-border p-5 col-span-2;
+    min-height: 200px;
+  }
+
+  .widget-xl {
+    @apply bg-card rounded-xl border border-border p-6 col-span-2;
+    min-height: 280px;
+  }
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(4px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes panelSlideIn {
+  from {
+    opacity: 0;
+    transform: translateX(-16px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes panelSlideOut {
+  from {
+    opacity: 1;
+    transform: translateX(0);
+  }
+  to {
+    opacity: 0;
+    transform: translateX(-16px);
+  }
+}
+
+@keyframes chatbotPulse {
+  0% {
+    box-shadow: 0 0 0 0 oklch(var(--chatbot-bubble) / 0.7);
+  }
+  50% {
+    box-shadow: 0 0 0 10px oklch(var(--chatbot-bubble) / 0);
+  }
+  100% {
+    box-shadow: 0 0 0 0 oklch(var(--chatbot-bubble) / 0.7);
+  }
+}

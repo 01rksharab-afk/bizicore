@@ -1,0 +1,3020 @@
+type http_request_result = 
+ record {
+   body: blob;
+   headers: vec http_header;
+   status: nat;
+ };
+type http_header = 
+ record {
+   name: text;
+   value: text;
+ };
+type WorkOrderStatus = 
+ variant {
+   cancelled;
+   completed;
+   inProgress;
+   planned;
+ };
+type WorkOrderId = nat;
+type WorkOrder = 
+ record {
+   actualEnd: opt Timestamp;
+   actualStart: opt Timestamp;
+   bomId: BomId;
+   createdAt: Timestamp;
+   enabled: bool;
+   id: WorkOrderId;
+   notes: text;
+   orgId: OrgId;
+   plannedEnd: Timestamp;
+   plannedStart: Timestamp;
+   quantity: float64;
+   status: WorkOrderStatus;
+ };
+type UserRoleAssignment = 
+ record {
+   assignedAt: Timestamp;
+   id: nat;
+   orgId: OrgId;
+   roleId: nat;
+   roleName: text;
+   userId: principal;
+ };
+type UserRole = 
+ variant {
+   admin;
+   guest;
+   user;
+ };
+type UserProfile = 
+ record {
+   email: opt text;
+   name: text;
+ };
+type UpsertPfEsiInput = 
+ record {
+   effectiveFrom: text;
+   esiRate: float64;
+   insurancePremiumPerEmployee: float64;
+   pfEmployeeRate: float64;
+   pfEmployerRate: float64;
+ };
+type UpdateWorkOrderInput = 
+ record {
+   actualEnd: opt Timestamp;
+   actualStart: opt Timestamp;
+   bomId: BomId;
+   enabled: bool;
+   id: WorkOrderId;
+   notes: text;
+   plannedEnd: Timestamp;
+   plannedStart: Timestamp;
+   quantity: float64;
+   status: WorkOrderStatus;
+ };
+type UpdateStockLevelInput = 
+ record {
+   itemId: nat;
+   locationId: opt nat;
+   locationName: text;
+   quantityOnHand: float64;
+   reorderLevel: float64;
+ };
+type UpdateSlipInput = 
+ record {
+   advanceDeduction: float64;
+   basicSalary: float64;
+   da: float64;
+   esiDeduction: float64;
+   hra: float64;
+   id: nat;
+   otherAllowances: float64;
+   pfDeduction: float64;
+   status: SlipStatus;
+   tdsDeduction: float64;
+ };
+type UpdateShopFloorInput = 
+ record {
+   enabled: bool;
+   endTime: opt Timestamp;
+   id: ShopFloorId;
+   machineId: MachineId;
+   notes: text;
+   operationId: RoutingOperationId;
+   operatorName: text;
+   quantity: float64;
+   startTime: Timestamp;
+   status: text;
+   workOrderId: WorkOrderId;
+ };
+type UpdateShipmentInput = 
+ record {
+   consigneeAddress: opt text;
+   consigneeName: opt text;
+   consigneePhone: opt text;
+   courierProvider: opt CourierProvider;
+   dimensions: opt text;
+   docId: opt nat;
+   orderId: opt nat;
+   status: opt ShipmentStatus;
+   trackingNo: opt text;
+   transporterName: opt text;
+   transporterPhone: opt text;
+   weight: opt float64;
+ };
+type UpdateScrapRecordInput = 
+ record {
+   date: Timestamp;
+   enabled: bool;
+   id: ScrapRecordId;
+   machineId: MachineId;
+   moId: ManufacturingOrderId;
+   recordedBy: text;
+   scrapQty: float64;
+   scrapReason: text;
+   scrapValue: float64;
+ };
+type UpdateSalesOrderInput = 
+ record {
+   customerId: nat;
+   customerName: text;
+   id: nat;
+   lineItems: vec LineItem;
+   notes: text;
+ };
+type UpdateRoutingOperationInput = 
+ record {
+   code: text;
+   costPerHour: float64;
+   description: text;
+   enabled: bool;
+   id: RoutingOperationId;
+   machineId: MachineId;
+   name: text;
+   sequence: nat;
+   standardTime: float64;
+ };
+type UpdateRoleInput = 
+ record {
+   description: text;
+   id: nat;
+   roleName: text;
+   screens: vec text;
+   status: RoleStatus;
+ };
+type UpdateRequisitionInput = 
+ record {
+   approvedBy: text;
+   enabled: bool;
+   id: RequisitionId;
+   items: vec RequisitionItem;
+   moId: ManufacturingOrderId;
+   requestedBy: text;
+   status: text;
+ };
+type UpdateQuotationInput = 
+ record {
+   customerId: nat;
+   customerName: text;
+   id: nat;
+   lineItems: vec LineItem;
+   notes: text;
+   validUntil: Timestamp;
+ };
+type UpdateQualityControlInput = 
+ record {
+   defects: vec text;
+   enabled: bool;
+   failQty: float64;
+   id: QualityControlId;
+   inspectionDate: Timestamp;
+   inspector: text;
+   moId: ManufacturingOrderId;
+   notes: text;
+   passQty: float64;
+   result: QcResult;
+ };
+type UpdatePurchaseOrderInput = 
+ record {
+   id: nat;
+   lineItems: vec LineItem;
+   notes: text;
+   supplierId: nat;
+   supplierName: text;
+ };
+type UpdatePurchaseBillInput = 
+ record {
+   amountPaid: float64;
+   dueDate: Timestamp;
+   id: nat;
+   lineItems: vec LineItem;
+   notes: text;
+   supplierId: nat;
+   supplierName: text;
+ };
+type UpdateProductionPlanInput = 
+ record {
+   actualQty: float64;
+   enabled: bool;
+   id: ProductionPlanId;
+   period: text;
+   status: text;
+   targetQty: float64;
+   workOrderIds: vec WorkOrderId;
+ };
+type UpdateProductInput = 
+ record {
+   categoryId: opt CategoryId;
+   description: text;
+   hsnCode: text;
+   id: ProductId;
+   name: text;
+   orgId: OrgId;
+   partNumber: text;
+   rate: float64;
+   stockQty: nat;
+   taxPercent: nat;
+   unit: text;
+ };
+type UpdateOrgConfigurationInput = 
+ record {
+   currency: text;
+   dateFormat: text;
+   enableBarcoding: bool;
+   enableBatches: bool;
+   enableSerialization: bool;
+   enableShelfLife: bool;
+   invoiceTemplate: text;
+   logoUrl: text;
+   numberSeriesInvoice: text;
+   numberSeriesPO: text;
+   numberSeriesSO: text;
+   paymentGatewayKey: text;
+   paymentGatewayType: text;
+   taxAdjustment: float64;
+   trackInventory: bool;
+ };
+type UpdateManufacturingOrderInput = 
+ record {
+   completedQty: float64;
+   dueDate: Timestamp;
+   enabled: bool;
+   id: ManufacturingOrderId;
+   quantity: float64;
+   startDate: Timestamp;
+   status: MoStatus;
+   workOrderId: WorkOrderId;
+ };
+type UpdateMachineInput = 
+ record {
+   capacity: float64;
+   capacityUnit: text;
+   code: text;
+   enabled: bool;
+   id: MachineId;
+   lastMaintenance: opt Timestamp;
+   location: text;
+   machineType: text;
+   name: text;
+   status: MachineStatus;
+ };
+type UpdateLocationInput = 
+ record {
+   email: text;
+   id: nat;
+   locationCode: text;
+   locationName: text;
+   state: text;
+ };
+type UpdateItemMasterInput = 
+ record {
+   attributes: vec ItemAttribute_;
+   barcode: text;
+   categoryId: opt nat;
+   categoryName: text;
+   description: text;
+   enableBatch: bool;
+   enableSerial: bool;
+   enableShelfLife: bool;
+   hsnCode: text;
+   id: nat;
+   itemCode: text;
+   name: text;
+   partNumber: text;
+   rate: float64;
+   taxPct: float64;
+   uomId: opt nat;
+   uomName: text;
+ };
+type UpdateInvoiceInput = 
+ record {
+   billTo: BillTo;
+   currency: text;
+   dueDate: Timestamp;
+   id: InvoiceId;
+   lineItems: vec LineItem__2;
+   notes: opt text;
+   taxPercent: float64;
+ };
+type UpdateInventoryCategoryInput = 
+ record {
+   description: text;
+   id: nat;
+   isActive: bool;
+   name: text;
+   parentId: opt nat;
+ };
+type UpdateIncentiveSchemeInput = 
+ record {
+   category: text;
+   effectiveFrom: Timestamp;
+   effectiveTo: opt Timestamp;
+   id: nat;
+   rewardType: RewardType;
+   rewardValue: float64;
+   schemeName: text;
+   status: SchemeStatus;
+   targetMetric: TargetMetric;
+   targetValue: float64;
+ };
+type UpdateHsnSacCodeInput = 
+ record {
+   category: text;
+   codeType: HsnSacCodeType;
+   description: text;
+   hsnCode: opt text;
+   id: text;
+   isActive: bool;
+   name: text;
+   sacCode: opt text;
+ };
+type UpdateGroupInput = 
+ record {
+   description: text;
+   groupName: text;
+   id: nat;
+   parentGroup: opt nat;
+   status: GroupStatus;
+ };
+type UpdateFinishedGoodInput = 
+ record {
+   batchNo: text;
+   enabled: bool;
+   expiryDate: opt Timestamp;
+   id: FinishedGoodId;
+   moId: ManufacturingOrderId;
+   productId: nat;
+   productionDate: Timestamp;
+   quantity: float64;
+   status: text;
+   warehouseLocation: text;
+ };
+type UpdateFinanceCategoryInput = 
+ record {
+   categoryType: FinanceCategoryType;
+   description: text;
+   id: text;
+   isActive: bool;
+   name: text;
+   parentId: opt text;
+ };
+type UpdateEmployeeInput = 
+ record {
+   department: text;
+   designation: text;
+   email: text;
+   employeeCode: text;
+   enabled: bool;
+   id: nat;
+   joiningDate: text;
+   name: text;
+   phone: text;
+   salaryGrade: text;
+   status: EmployeeStatus;
+ };
+type UpdateCostOfProductionInput = 
+ record {
+   enabled: bool;
+   id: CostOfProductionId;
+   labourCost: float64;
+   materialCost: float64;
+   moId: ManufacturingOrderId;
+   notes: text;
+   overheadCost: float64;
+   period: text;
+   scrapCost: float64;
+ };
+type UpdateCategoryInput = 
+ record {
+   description: text;
+   id: CategoryId;
+   name: text;
+   orgId: OrgId;
+ };
+type UpdateBomInput = 
+ record {
+   components: vec BomComponent;
+   enabled: bool;
+   id: BomId;
+   productName: text;
+   revision: text;
+   status: text;
+ };
+type UpdateAttendanceInput = 
+ record {
+   attendanceType: AttendanceType;
+   date: text;
+   employeeId: nat;
+   id: nat;
+   notes: text;
+   punchIn: opt text;
+   punchOut: opt text;
+   totalHours: float64;
+ };
+type UnitOfMeasure = 
+ record {
+   baseUnit: text;
+   conversionFactor: float64;
+   createdAt: Timestamp;
+   id: nat;
+   name: text;
+   orgId: OrgId;
+   symbol: text;
+ };
+type TransformationOutput = 
+ record {
+   body: blob;
+   headers: vec http_header;
+   status: nat;
+ };
+type TransformationInput = 
+ record {
+   context: blob;
+   response: http_request_result;
+ };
+type TransactionInput = 
+ record {
+   amount: int;
+   category: TransactionCategory;
+   date: Timestamp;
+   description: text;
+ };
+type TransactionFilter = 
+ record {
+   category: opt TransactionCategory;
+   fromDate: opt Timestamp;
+   reconciled: opt bool;
+   toDate: opt Timestamp;
+ };
+type TransactionCategory = 
+ variant {
+   contractorFees;
+   equipment;
+   other;
+   revenue;
+   software;
+   travel;
+ };
+type Transaction = 
+ record {
+   amount: int;
+   category: TransactionCategory;
+   createdAt: Timestamp;
+   createdBy: principal;
+   date: Timestamp;
+   description: text;
+   id: nat;
+   orgId: OrgId;
+   reconciliation: ReconciliationStatus;
+ };
+type TrafficSummary = 
+ record {
+   directToday: nat;
+   externalToday: nat;
+   internalToday: nat;
+   topPages: vec record {
+                   text;
+                   nat;
+                 };
+   topReferrers: vec record {
+                       text;
+                       nat;
+                     };
+   totalToday: nat;
+ };
+type TrafficSource = 
+ variant {
+   direct;
+   external;
+   internal;
+ };
+type TrafficQuery = 
+ record {
+   dateFrom: opt int;
+   dateTo: opt int;
+   orgId: text;
+   page: opt text;
+   sourceType: opt TrafficSource;
+ };
+type TrafficEvent = 
+ record {
+   id: text;
+   orgId: text;
+   page: text;
+   referrer: text;
+   sessionId: text;
+   sourceType: TrafficSource;
+   timestamp: int;
+   userId: text;
+ };
+type TrackingInfo = 
+ record {
+   currentStatus: ShipmentStatus;
+   events: vec TrackingEvent;
+   provider: CourierProvider;
+   shipmentId: nat;
+   trackingNo: opt text;
+ };
+type TrackingEvent = 
+ record {
+   description: text;
+   location: opt text;
+   status: ShipmentStatus;
+   timestamp: int;
+ };
+type Timestamp = int;
+type TaskStatus = 
+ variant {
+   completed;
+   inProgress;
+   pending;
+ };
+type TaskPriority = 
+ variant {
+   high;
+   low;
+   medium;
+ };
+type TargetMetric = 
+ variant {
+   NewCustomers;
+   Revenue;
+   Units;
+ };
+type SyncStatus = 
+ variant {
+   failed;
+   idle;
+   success;
+   syncing;
+ };
+type SyncResult = 
+ record {
+   duplicates: nat;
+   errors: vec text;
+   newLeads: nat;
+   timestamp: Timestamp;
+ };
+type SyncRecord = 
+ record {
+   duplicates: nat;
+   errorMsg: opt text;
+   newLeads: nat;
+   portal: PortalType;
+   status: variant {
+             failed;
+             success;
+           };
+   timestamp: Timestamp;
+ };
+type SupplierPayment = 
+ record {
+   amount: float64;
+   billId: opt nat;
+   createdAt: Timestamp;
+   id: nat;
+   isAdvance: bool;
+   orgId: OrgId;
+   paymentDate: Timestamp;
+   paymentMode: PaymentMode;
+   reference: text;
+   supplierId: nat;
+ };
+type SubscriptionStatus = 
+ variant {
+   active;
+   canceled;
+   incomplete;
+   pastDue;
+   trialing;
+ };
+type StripeSessionStatus = 
+ variant {
+   completed: record {
+                response: text;
+                userPrincipal: opt text;
+              };
+   failed: record {error: text;};
+ };
+type StripeConfiguration = 
+ record {
+   allowedCountries: vec text;
+   secretKey: text;
+ };
+type StripeConfig = 
+ record {
+   allowedCountries: vec text;
+   secretKey: text;
+ };
+type StockLevel = 
+ record {
+   createdAt: Timestamp;
+   id: nat;
+   itemId: nat;
+   itemName: text;
+   locationId: opt nat;
+   locationName: text;
+   orgId: OrgId;
+   quantityOnHand: float64;
+   reorderLevel: float64;
+ };
+type StageSummary = 
+ record {
+   count: nat;
+   stage: DealStage;
+   totalValue: nat;
+ };
+type SoStatus = 
+ variant {
+   cancelled;
+   confirmed;
+   draft;
+   invoiced;
+ };
+type SlipStatus = 
+ variant {
+   draft;
+   generated;
+   paid;
+ };
+type ShoppingItem = 
+ record {
+   currency: text;
+   priceInCents: nat;
+   productDescription: text;
+   productName: text;
+   quantity: nat;
+ };
+type ShopFloorId = nat;
+type ShopFloorControl = 
+ record {
+   createdAt: Timestamp;
+   enabled: bool;
+   endTime: opt Timestamp;
+   id: ShopFloorId;
+   machineId: MachineId;
+   notes: text;
+   operationId: RoutingOperationId;
+   operatorName: text;
+   orgId: OrgId;
+   quantity: float64;
+   startTime: Timestamp;
+   status: text;
+   workOrderId: WorkOrderId;
+ };
+type ShipmentStatus = 
+ variant {
+   cancelled;
+   delivered;
+   inTransit;
+   outForDelivery;
+   pending;
+   picked;
+   returned;
+ };
+type Shipment = 
+ record {
+   consigneeAddress: text;
+   consigneeName: text;
+   consigneePhone: text;
+   courierProvider: CourierProvider;
+   createdAt: int;
+   deliveredAt: opt int;
+   dimensions: opt text;
+   dispatchedAt: opt int;
+   docId: opt nat;
+   id: nat;
+   orderId: opt nat;
+   orgId: OrgId;
+   status: ShipmentStatus;
+   trackingNo: opt text;
+   transporterName: opt text;
+   transporterPhone: opt text;
+   updatedAt: int;
+   weight: opt float64;
+ };
+type SetPermissionsInput = 
+ record {
+   canCreate: bool;
+   canDelete: bool;
+   canEdit: bool;
+   canView: bool;
+   module: text;
+   roleId: nat;
+   roleName: text;
+   screen: text;
+ };
+type ScrapRecordId = nat;
+type ScrapRecord = 
+ record {
+   createdAt: Timestamp;
+   date: Timestamp;
+   enabled: bool;
+   id: ScrapRecordId;
+   machineId: MachineId;
+   moId: ManufacturingOrderId;
+   orgId: OrgId;
+   recordedBy: text;
+   scrapQty: float64;
+   scrapReason: text;
+   scrapValue: float64;
+ };
+type SchemeStatus = 
+ variant {
+   Active;
+   Inactive;
+ };
+type SalesOrder = 
+ record {
+   createdAt: Timestamp;
+   customerId: nat;
+   customerName: text;
+   id: nat;
+   lineItems: vec LineItem;
+   notes: text;
+   orgId: OrgId;
+   soNumber: text;
+   status: SoStatus;
+   subtotal: float64;
+   taxTotal: float64;
+   total: float64;
+ };
+type SaleReturn = 
+ record {
+   createdAt: Timestamp;
+   customer: text;
+   id: nat;
+   invoiceId: nat;
+   items: vec ReturnItem;
+   orgId: OrgId;
+   reason: text;
+   returnNumber: text;
+   status: ReturnStatus;
+   totalAmount: float64;
+ };
+type SaleDebitNote = 
+ record {
+   amount: float64;
+   createdAt: Timestamp;
+   customer: text;
+   debitNumber: text;
+   id: nat;
+   invoiceId: nat;
+   orgId: OrgId;
+   reason: text;
+   status: NoteStatus;
+ };
+type SaleCreditNote = 
+ record {
+   amount: float64;
+   createdAt: Timestamp;
+   creditNumber: text;
+   customer: text;
+   id: nat;
+   invoiceId: nat;
+   orgId: OrgId;
+   reason: text;
+   status: NoteStatus;
+ };
+type SalarySlip = 
+ record {
+   advanceDeduction: float64;
+   basicSalary: float64;
+   createdAt: int;
+   da: float64;
+   employeeId: nat;
+   esiDeduction: float64;
+   hra: float64;
+   id: nat;
+   month: nat;
+   netPay: float64;
+   orgId: nat;
+   otherAllowances: float64;
+   pfDeduction: float64;
+   status: SlipStatus;
+   tdsDeduction: float64;
+   year: nat;
+ };
+type RowError = 
+ record {
+   msg: text;
+   row: nat;
+ };
+type RoutingOperationId = nat;
+type RoutingOperation = 
+ record {
+   code: text;
+   costPerHour: float64;
+   createdAt: Timestamp;
+   description: text;
+   enabled: bool;
+   id: RoutingOperationId;
+   machineId: MachineId;
+   name: text;
+   orgId: OrgId;
+   sequence: nat;
+   standardTime: float64;
+ };
+type RoleStatus = 
+ variant {
+   Active;
+   Inactive;
+ };
+type Role = 
+ record {
+   createdAt: Timestamp;
+   description: text;
+   id: nat;
+   orgId: OrgId;
+   roleName: text;
+   screens: vec text;
+   status: RoleStatus;
+ };
+type RewardType = 
+ variant {
+   FixedAmount;
+   Percentage;
+ };
+type ReturnStatus = 
+ variant {
+   approved;
+   cancelled;
+   completed;
+   draft;
+ };
+type ReturnItem = 
+ record {
+   name: text;
+   productId: text;
+   qty: float64;
+   rate: float64;
+ };
+type RequisitionItem = 
+ record {
+   issuedQty: float64;
+   itemId: nat;
+   requiredQty: float64;
+   status: ReqItemStatus;
+ };
+type RequisitionId = nat;
+type ReqItemStatus = 
+ variant {
+   issued;
+   partial;
+   pending;
+ };
+type RegisterIndividualInput = 
+ record {
+   email: text;
+   fullName: text;
+   password: text;
+   phone: text;
+   profilePhotoUrl: opt text;
+ };
+type RegisterGroupInput = 
+ record {
+   contactEmail: text;
+   description: text;
+   groupType: text;
+   headName: text;
+   name: text;
+   password: text;
+   phone: text;
+ };
+type RegisterCompanyInput = 
+ record {
+   adminDesignation: text;
+   adminEmail: text;
+   adminName: text;
+   adminPhone: text;
+   city: text;
+   companyType: text;
+   gst: opt text;
+   industry: text;
+   logoUrl: opt text;
+   name: text;
+   password: text;
+   pin: text;
+   state: text;
+   street: text;
+   website: opt text;
+ };
+type ReconciliationStatus = 
+ variant {
+   reconciled: text;
+   unreconciled;
+ };
+type RawMaterialRequisition = 
+ record {
+   approvedBy: text;
+   createdAt: Timestamp;
+   enabled: bool;
+   id: RequisitionId;
+   items: vec RequisitionItem;
+   moId: ManufacturingOrderId;
+   orgId: OrgId;
+   requestedBy: text;
+   status: text;
+ };
+type QuoteStatus = 
+ variant {
+   accepted;
+   draft;
+   expired;
+   rejected;
+   sent;
+ };
+type Quotation = 
+ record {
+   createdAt: Timestamp;
+   customerId: nat;
+   customerName: text;
+   id: nat;
+   lineItems: vec LineItem;
+   notes: text;
+   orgId: OrgId;
+   quoteNumber: text;
+   status: QuoteStatus;
+   subtotal: float64;
+   taxTotal: float64;
+   total: float64;
+   validUntil: Timestamp;
+ };
+type QualityControlId = nat;
+type QualityControl = 
+ record {
+   createdAt: Timestamp;
+   defects: vec text;
+   enabled: bool;
+   failQty: float64;
+   id: QualityControlId;
+   inspectionDate: Timestamp;
+   inspector: text;
+   moId: ManufacturingOrderId;
+   notes: text;
+   orgId: OrgId;
+   passQty: float64;
+   result: QcResult;
+ };
+type QcResult = 
+ variant {
+   fail;
+   pass;
+ };
+type PurchaseReturn = 
+ record {
+   billId: nat;
+   createdAt: Timestamp;
+   id: nat;
+   items: vec ReturnItem;
+   orgId: OrgId;
+   reason: text;
+   returnNumber: text;
+   status: ReturnStatus;
+   supplier: text;
+   totalAmount: float64;
+ };
+type PurchaseOrder = 
+ record {
+   createdAt: Timestamp;
+   id: nat;
+   lineItems: vec LineItem;
+   notes: text;
+   orgId: OrgId;
+   poNumber: text;
+   status: PoStatus;
+   subtotal: float64;
+   supplierId: nat;
+   supplierName: text;
+   taxTotal: float64;
+   total: float64;
+ };
+type PurchaseDebitNote = 
+ record {
+   amount: float64;
+   billId: nat;
+   createdAt: Timestamp;
+   debitNumber: text;
+   id: nat;
+   orgId: OrgId;
+   reason: text;
+   status: NoteStatus;
+   supplier: text;
+ };
+type PurchaseCreditNote = 
+ record {
+   amount: float64;
+   billId: nat;
+   createdAt: Timestamp;
+   creditNumber: text;
+   id: nat;
+   orgId: OrgId;
+   reason: text;
+   status: NoteStatus;
+   supplier: text;
+ };
+type PurchaseBill = 
+ record {
+   amountPaid: float64;
+   billNumber: text;
+   createdAt: Timestamp;
+   dueDate: Timestamp;
+   id: nat;
+   lineItems: vec LineItem;
+   notes: text;
+   orgId: OrgId;
+   poId: opt nat;
+   status: BillStatus;
+   subtotal: float64;
+   supplierId: nat;
+   supplierName: text;
+   taxTotal: float64;
+   total: float64;
+ };
+type ProductionPlanId = nat;
+type ProductionPlan = 
+ record {
+   actualQty: float64;
+   createdAt: Timestamp;
+   enabled: bool;
+   id: ProductionPlanId;
+   orgId: OrgId;
+   period: text;
+   status: text;
+   targetQty: float64;
+   workOrderIds: vec WorkOrderId;
+ };
+type ProductId = nat;
+type Product = 
+ record {
+   categoryId: opt CategoryId;
+   createdAt: Timestamp;
+   createdBy: principal;
+   description: text;
+   hsnCode: text;
+   id: ProductId;
+   name: text;
+   orgId: OrgId;
+   partNumber: text;
+   rate: float64;
+   stockQty: nat;
+   taxPercent: nat;
+   unit: text;
+ };
+type PosTransaction = 
+ record {
+   createdAt: Timestamp;
+   customerId: opt nat;
+   customerName: opt text;
+   id: nat;
+   items: vec PosItem;
+   orgId: OrgId;
+   paymentMode: PaymentMode__1;
+   subtotal: float64;
+   taxTotal: float64;
+   total: float64;
+ };
+type PosItem = 
+ record {
+   name: text;
+   productId: text;
+   qty: float64;
+   rate: float64;
+   taxPct: float64;
+   total: float64;
+ };
+type PortalType = 
+ variant {
+   exportindia;
+   facebookPage;
+   globallinker;
+   google;
+   indiamart;
+   justdial;
+   metaAds;
+   tradeindia;
+   websiteWebhook;
+ };
+type PortalTask = 
+ record {
+   assignedTo: text;
+   companyId: text;
+   createdAt: int;
+   createdBy: text;
+   description: text;
+   dueDate: int;
+   fileUrl: opt text;
+   id: text;
+   priority: TaskPriority;
+   status: TaskStatus;
+   title: text;
+   updatedAt: int;
+ };
+type PortalRole = 
+ variant {
+   portalAdmin;
+   portalEmployee;
+ };
+type PortalEmployeeSession = 
+ record {
+   companyId: text;
+   employeeId: text;
+   name: text;
+   role: PortalRole;
+ };
+type PortalEmployee = 
+ record {
+   companyId: text;
+   createdAt: int;
+   department: text;
+   designation: text;
+   email: text;
+   employeeId: text;
+   isActive: bool;
+   modulePermissions: vec record {
+                            text;
+                            bool;
+                          };
+   name: text;
+   passwordHash: text;
+ };
+type PortalApiKeyInfo = 
+ record {
+   lastSynced: opt Timestamp;
+   maskedKey: text;
+   portal: PortalType;
+   syncStatus: SyncStatus;
+ };
+type PortalAdminSession = 
+ record {
+   adminName: text;
+   companyId: text;
+   email: text;
+   logoUrl: opt text;
+   role: PortalRole;
+ };
+type PoStatus = 
+ variant {
+   approved;
+   billed;
+   draft;
+   sent;
+ };
+type PlanTier = 
+ variant {
+   enterprise;
+   free;
+   pro;
+ };
+type PipelineSummary = 
+ record {
+   averageDealSize: nat;
+   stages: vec StageSummary;
+   winRate: nat;
+ };
+type PfEsiConfig = 
+ record {
+   createdAt: int;
+   effectiveFrom: text;
+   esiRate: float64;
+   id: nat;
+   insurancePremiumPerEmployee: float64;
+   orgId: nat;
+   pfEmployeeRate: float64;
+   pfEmployerRate: float64;
+ };
+type Permission = 
+ record {
+   canCreate: bool;
+   canDelete: bool;
+   canEdit: bool;
+   canView: bool;
+   createdAt: Timestamp;
+   id: nat;
+   module: text;
+   orgId: OrgId;
+   roleId: nat;
+   roleName: text;
+   screen: text;
+ };
+type PendingInvite = 
+ record {
+   createdAt: Timestamp;
+   email: text;
+   id: nat;
+   invitedBy: principal;
+   orgId: OrgId;
+   role: OrgRole;
+ };
+type PayrollStatus = 
+ variant {
+   paid;
+   pending;
+   processed;
+ };
+type Payroll = 
+ record {
+   createdAt: int;
+   id: nat;
+   month: nat;
+   orgId: nat;
+   processedAt: int;
+   status: PayrollStatus;
+   totalDeductions: float64;
+   totalEmployees: nat;
+   totalGrossPay: float64;
+   totalNetPay: float64;
+   year: nat;
+ };
+type PaymentMode__1 = 
+ variant {
+   bank;
+   card;
+   cash;
+   cheque;
+   online;
+   upi;
+ };
+type PaymentMode = 
+ variant {
+   bank;
+   cash;
+   cheque;
+   upi;
+ };
+type OrgType = 
+ variant {
+   company;
+   individual;
+ };
+type OrgSummary = 
+ record {
+   id: OrgId;
+   myRole: OrgRole;
+   name: text;
+   slug: text;
+   timezone: text;
+ };
+type OrgSubscription = 
+ record {
+   cancelAtPeriodEnd: bool;
+   currentPeriodEnd: opt Timestamp;
+   currentPeriodStart: opt Timestamp;
+   orgId: OrgId;
+   plan: PlanTier;
+   status: SubscriptionStatus;
+   stripeCustomerId: opt text;
+   stripeSubscriptionId: opt text;
+   trialEnd: opt Timestamp;
+ };
+type OrgRole = 
+ variant {
+   admin;
+   member;
+   owner;
+ };
+type OrgMember = 
+ record {
+   invitedBy: opt principal;
+   joinedAt: Timestamp;
+   "principal": principal;
+   role: OrgRole;
+ };
+type OrgId__15 = text;
+type OrgId = nat;
+type OrgContactPerson = 
+ record {
+   email: text;
+   name: text;
+   phone: text;
+ };
+type OrgConfiguration = 
+ record {
+   currency: text;
+   dateFormat: text;
+   enableBarcoding: bool;
+   enableBatches: bool;
+   enableSerialization: bool;
+   enableShelfLife: bool;
+   id: nat;
+   invoiceTemplate: text;
+   logoUrl: text;
+   numberSeriesInvoice: text;
+   numberSeriesPO: text;
+   numberSeriesSO: text;
+   orgId: OrgId;
+   paymentGatewayKey: text;
+   paymentGatewayType: text;
+   taxAdjustment: float64;
+   trackInventory: bool;
+   updatedAt: Timestamp;
+ };
+type OrgBillingInfo = 
+ record {
+   address: text;
+   logoUrl: opt text;
+   name: text;
+   taxId: opt text;
+ };
+type OrgAddress = 
+ record {
+   city: text;
+   country: text;
+   postal: text;
+   state: text;
+   street: text;
+ };
+type Org = 
+ record {
+   address: opt OrgAddress;
+   contactPerson: opt OrgContactPerson;
+   createdAt: Timestamp;
+   createdBy: principal;
+   gstin: opt text;
+   id: OrgId;
+   name: text;
+   orgType: OrgType;
+   pan: opt text;
+   slug: text;
+   timezone: text;
+ };
+type NotificationId = text;
+type Notification = 
+ record {
+   createdAt: int;
+   id: NotificationId;
+   isRead: bool;
+   message: text;
+   notifType: NotifType;
+   orgId: OrgId__15;
+   title: text;
+   userId: principal;
+ };
+type NotifType = 
+ variant {
+   B2BSyncNotif;
+   GSTFiling;
+   Invoice;
+   System;
+ };
+type NoteStatus = 
+ variant {
+   applied;
+   approved;
+   cancelled;
+   draft;
+ };
+type NoteId = nat;
+type MonthlySummary = 
+ record {
+   expenses: nat;
+   income: nat;
+   month: nat;
+   net: int;
+   year: nat;
+ };
+type MonthlyRevenue = 
+ record {
+   expenses: nat;
+   month: nat;
+   revenue: nat;
+   year: nat;
+ };
+type MoStatus = 
+ variant {
+   cancelled;
+   completed;
+   draft;
+   inProgress;
+   released;
+ };
+type ManufacturingOrderId = nat;
+type ManufacturingOrder = 
+ record {
+   completedQty: float64;
+   createdAt: Timestamp;
+   dueDate: Timestamp;
+   enabled: bool;
+   id: ManufacturingOrderId;
+   orgId: OrgId;
+   quantity: float64;
+   startDate: Timestamp;
+   status: MoStatus;
+   workOrderId: WorkOrderId;
+ };
+type MachineStatus = 
+ variant {
+   active;
+   inactive;
+   maintenance;
+ };
+type MachineId = nat;
+type Machine = 
+ record {
+   capacity: float64;
+   capacityUnit: text;
+   code: text;
+   createdAt: Timestamp;
+   enabled: bool;
+   id: MachineId;
+   lastMaintenance: opt Timestamp;
+   location: text;
+   machineType: text;
+   name: text;
+   orgId: OrgId;
+   status: MachineStatus;
+ };
+type Location = 
+ record {
+   createdAt: Timestamp;
+   email: text;
+   id: nat;
+   locationCode: text;
+   locationName: text;
+   orgId: OrgId;
+   state: text;
+ };
+type LineItem__2 = 
+ record {
+   description: text;
+   quantity: float64;
+   rateInCents: nat;
+ };
+type LineItem = 
+ record {
+   description: text;
+   qty: float64;
+   rate: float64;
+   taxPct: float64;
+   total: float64;
+ };
+type LedgerEntry = 
+ record {
+   runningBalance: int;
+   transaction: Transaction;
+ };
+type LeadStatus = 
+ variant {
+   converted;
+   lost;
+   new;
+   qualified;
+ };
+type LeadSource = 
+ variant {
+   csv;
+   exportindia;
+   facebookPage;
+   globallinker;
+   google;
+   indiamart;
+   justdial;
+   manual;
+   metaAds;
+   tradeindia;
+   websiteWebhook;
+ };
+type LeadInput = 
+ record {
+   contactId: ContactId;
+   status: LeadStatus;
+ };
+type LeadId = nat;
+type Lead = 
+ record {
+   contactId: ContactId;
+   createdAt: Timestamp;
+   createdBy: principal;
+   id: LeadId;
+   orgId: OrgId;
+   score: nat;
+   status: LeadStatus;
+   updatedAt: Timestamp;
+ };
+type ItemMaster = 
+ record {
+   attributes: vec ItemAttribute_;
+   barcode: text;
+   categoryId: opt nat;
+   categoryName: text;
+   createdAt: Timestamp;
+   description: text;
+   enableBatch: bool;
+   enableSerial: bool;
+   enableShelfLife: bool;
+   hsnCode: text;
+   id: nat;
+   itemCode: text;
+   name: text;
+   orgId: OrgId;
+   partNumber: text;
+   rate: float64;
+   taxPct: float64;
+   uomId: opt nat;
+   uomName: text;
+ };
+type ItemAttribute_ = 
+ record {
+   attributeId: text;
+   name: text;
+   value: text;
+ };
+type ItemAttributeDef = 
+ record {
+   createdAt: Timestamp;
+   id: nat;
+   name: text;
+   orgId: OrgId;
+   "type": AttributeType;
+   values: vec text;
+ };
+type InvoiceView = 
+ record {
+   billTo: BillTo;
+   createdAt: Timestamp;
+   createdBy: principal;
+   currency: text;
+   dueDate: Timestamp;
+   id: InvoiceId;
+   invoiceNumber: text;
+   lineItems: vec LineItem__2;
+   notes: opt text;
+   orgId: OrgId;
+   orgInfo: OrgBillingInfo;
+   paidAt: opt Timestamp;
+   sentAt: opt Timestamp;
+   status: InvoiceStatus;
+   stripePaymentIntentId: opt text;
+   stripePaymentLinkId: opt text;
+   stripeSessionId: opt text;
+   taxPercent: float64;
+ };
+type InvoiceStatus = 
+ variant {
+   draft;
+   overdue;
+   paid;
+   sent;
+   voided;
+ };
+type InvoiceId = nat;
+type InventoryCategory = 
+ record {
+   createdAt: Timestamp;
+   description: text;
+   id: nat;
+   isActive: bool;
+   name: text;
+   orgId: OrgId;
+   parentId: opt nat;
+ };
+type InteractionNoteInput = 
+ record {
+   contactId: ContactId;
+   kind: InteractionKind;
+   occurredAt: Timestamp;
+   outcome: text;
+ };
+type InteractionNote = 
+ record {
+   contactId: ContactId;
+   createdAt: Timestamp;
+   createdBy: principal;
+   id: NoteId;
+   kind: InteractionKind;
+   occurredAt: Timestamp;
+   orgId: OrgId;
+   outcome: text;
+ };
+type InteractionKind = 
+ variant {
+   call;
+   email;
+   meeting;
+   other;
+ };
+type IncentiveScheme = 
+ record {
+   category: text;
+   createdAt: Timestamp;
+   effectiveFrom: Timestamp;
+   effectiveTo: opt Timestamp;
+   id: nat;
+   orgId: OrgId;
+   rewardType: RewardType;
+   rewardValue: float64;
+   schemeName: text;
+   status: SchemeStatus;
+   targetMetric: TargetMetric;
+   targetValue: float64;
+ };
+type ImportResult = 
+ record {
+   errors: vec RowError;
+   success: nat;
+ };
+type HsnSacFilter = 
+ record {
+   category: opt text;
+   codeType: opt HsnSacCodeType;
+   isActive: opt bool;
+ };
+type HsnSacCodeType = 
+ variant {
+   auto;
+   manual;
+ };
+type HsnSacCode = 
+ record {
+   category: text;
+   codeType: HsnSacCodeType;
+   createdAt: Timestamp;
+   description: text;
+   hsnCode: opt text;
+   id: text;
+   isActive: bool;
+   name: text;
+   orgId: OrgId;
+   sacCode: opt text;
+   updatedAt: Timestamp;
+ };
+type Gstr3bEntry = 
+ record {
+   cgstPayable: float64;
+   igstPayable: float64;
+   inputTaxCredit: float64;
+   netTax: float64;
+   sgstPayable: float64;
+ };
+type Gstr1Entry = 
+ record {
+   cgst: float64;
+   customerGstin: opt text;
+   hsnCode: text;
+   igst: float64;
+   invoiceDate: Timestamp;
+   invoiceNumber: text;
+   sgst: float64;
+   taxableValue: float64;
+ };
+type GstReturnType = 
+ variant {
+   gstr1;
+   gstr3b;
+ };
+type GstReturnId = nat;
+type GstReturn = 
+ record {
+   createdAt: Timestamp;
+   createdBy: principal;
+   filedAt: opt Timestamp;
+   gstr1Entries: vec Gstr1Entry;
+   gstr3bEntry: Gstr3bEntry;
+   id: GstReturnId;
+   orgId: OrgId;
+   period: FilingPeriod;
+   returnType: GstReturnType;
+   status: FilingStatus;
+ };
+type GstRefundRequest = 
+ record {
+   acknowledgedAt: opt int;
+   amount: float64;
+   createdAt: int;
+   filedAt: opt int;
+   id: nat;
+   orgId: OrgId;
+   period: text;
+   reason: text;
+   refundType: text;
+   status: text;
+ };
+type Group_ = 
+ record {
+   createdAt: Timestamp;
+   description: text;
+   groupName: text;
+   id: nat;
+   orgId: OrgId;
+   parentGroup: opt nat;
+   status: GroupStatus;
+ };
+type GroupStatus = 
+ variant {
+   Active;
+   Inactive;
+ };
+type FinishedGoodId = nat;
+type FinishedGood = 
+ record {
+   batchNo: text;
+   createdAt: Timestamp;
+   enabled: bool;
+   expiryDate: opt Timestamp;
+   id: FinishedGoodId;
+   moId: ManufacturingOrderId;
+   orgId: OrgId;
+   productId: nat;
+   productionDate: Timestamp;
+   quantity: float64;
+   status: text;
+   warehouseLocation: text;
+ };
+type FinanceDashboard = 
+ record {
+   budgetAllocated: nat;
+   budgetRemaining: int;
+   budgetSpent: nat;
+   budgetUtilizationPct: nat;
+   expensesByCategory: vec CategoryExpense;
+   monthlyRevenueTrend: vec MonthlyRevenue;
+   mrr: nat;
+   revenueGrowthPct: int;
+   revenueMTD: nat;
+ };
+type FinanceCategoryType = 
+ variant {
+   expense;
+   income;
+ };
+type FinanceCategoryFilter = 
+ record {
+   categoryType: opt FinanceCategoryType;
+   isActive: opt bool;
+   parentId: opt text;
+ };
+type FinanceCategory = 
+ record {
+   categoryType: FinanceCategoryType;
+   createdAt: Timestamp;
+   description: text;
+   id: text;
+   isActive: bool;
+   name: text;
+   orgId: OrgId;
+   parentId: opt text;
+ };
+type FilingStatus = 
+ variant {
+   acknowledged;
+   draft;
+   submitted;
+ };
+type FilingPeriod = 
+ record {
+   month: nat;
+   year: nat;
+ };
+type ExtendedLeadInput = 
+ record {
+   contactId: ContactId;
+   notes: text;
+   source: LeadSource;
+   status: LeadStatus;
+ };
+type ExtendedLead = 
+ record {
+   contactId: ContactId;
+   createdAt: Timestamp;
+   createdBy: principal;
+   id: LeadId;
+   notes: text;
+   orgId: OrgId;
+   score: nat;
+   source: LeadSource;
+   status: LeadStatus;
+   updatedAt: Timestamp;
+ };
+type EmployeeStatus = 
+ variant {
+   active;
+   inactive;
+ };
+type Employee = 
+ record {
+   createdAt: int;
+   department: text;
+   designation: text;
+   email: text;
+   employeeCode: text;
+   enabled: bool;
+   id: nat;
+   joiningDate: text;
+   name: text;
+   orgId: nat;
+   phone: text;
+   salaryGrade: text;
+   status: EmployeeStatus;
+ };
+type DealStageEvent = 
+ record {
+   changedAt: Timestamp;
+   changedBy: principal;
+   dealId: DealId;
+   fromStage: opt DealStage;
+   orgId: OrgId;
+   toStage: DealStage;
+ };
+type DealStage = 
+ variant {
+   closedLost;
+   closedWon;
+   negotiation;
+   prospect;
+   qualified;
+ };
+type DealNoteInput = 
+ record {
+   dealId: DealId;
+   "text": text;
+ };
+type DealNote = 
+ record {
+   createdAt: Timestamp;
+   createdBy: principal;
+   dealId: DealId;
+   id: NoteId;
+   orgId: OrgId;
+   "text": text;
+ };
+type DealInput = 
+ record {
+   closeDate: opt Timestamp;
+   contactId: opt ContactId;
+   name: text;
+   owner: principal;
+   stage: DealStage;
+   value: nat;
+ };
+type DealId = nat;
+type Deal = 
+ record {
+   closeDate: opt Timestamp;
+   contactId: opt ContactId;
+   createdAt: Timestamp;
+   createdBy: principal;
+   id: DealId;
+   name: text;
+   orgId: OrgId;
+   owner: principal;
+   stage: DealStage;
+   updatedAt: Timestamp;
+   value: nat;
+ };
+type DashboardLayout = 
+ record {
+   adminEmail: text;
+   updatedAt: int;
+   widgetConfig: text;
+ };
+type CustomerReceipt = 
+ record {
+   amount: float64;
+   createdAt: Timestamp;
+   customerId: nat;
+   id: nat;
+   invoiceId: opt nat;
+   isAdvance: bool;
+   orgId: OrgId;
+   paymentMode: PaymentMode__1;
+   receiptDate: Timestamp;
+   reference: text;
+ };
+type CsvLeadRow = 
+ record {
+   company: opt text;
+   email: opt text;
+   name: text;
+   notes: text;
+   phone: opt text;
+   source: text;
+ };
+type CreateWorkOrderInput = 
+ record {
+   bomId: BomId;
+   notes: text;
+   plannedEnd: Timestamp;
+   plannedStart: Timestamp;
+   quantity: float64;
+ };
+type CreateUomInput = 
+ record {
+   baseUnit: text;
+   conversionFactor: float64;
+   name: text;
+   symbol: text;
+ };
+type CreateTaskInput = 
+ record {
+   assignedTo: text;
+   companyId: text;
+   createdBy: text;
+   description: text;
+   dueDate: int;
+   fileUrl: opt text;
+   priority: TaskPriority;
+   title: text;
+ };
+type CreateSupplierPaymentInput = 
+ record {
+   amount: float64;
+   billId: opt nat;
+   isAdvance: bool;
+   paymentDate: Timestamp;
+   paymentMode: PaymentMode;
+   reference: text;
+   supplierId: nat;
+ };
+type CreateSlipInput = 
+ record {
+   advanceDeduction: float64;
+   basicSalary: float64;
+   da: float64;
+   employeeId: nat;
+   esiDeduction: float64;
+   hra: float64;
+   month: nat;
+   otherAllowances: float64;
+   pfDeduction: float64;
+   tdsDeduction: float64;
+   year: nat;
+ };
+type CreateShopFloorInput = 
+ record {
+   machineId: MachineId;
+   notes: text;
+   operationId: RoutingOperationId;
+   operatorName: text;
+   quantity: float64;
+   startTime: Timestamp;
+   workOrderId: WorkOrderId;
+ };
+type CreateShipmentInput = 
+ record {
+   consigneeAddress: text;
+   consigneeName: text;
+   consigneePhone: text;
+   courierProvider: CourierProvider;
+   dimensions: opt text;
+   docId: opt nat;
+   orderId: opt nat;
+   trackingNo: opt text;
+   transporterName: opt text;
+   transporterPhone: opt text;
+   weight: opt float64;
+ };
+type CreateScrapRecordInput = 
+ record {
+   date: Timestamp;
+   machineId: MachineId;
+   moId: ManufacturingOrderId;
+   recordedBy: text;
+   scrapQty: float64;
+   scrapReason: text;
+   scrapValue: float64;
+ };
+type CreateSalesOrderInput = 
+ record {
+   customerId: nat;
+   customerName: text;
+   lineItems: vec LineItem;
+   notes: text;
+ };
+type CreateSaleReturnInput = 
+ record {
+   customer: text;
+   invoiceId: nat;
+   items: vec ReturnItem;
+   reason: text;
+ };
+type CreateRoutingOperationInput = 
+ record {
+   code: text;
+   costPerHour: float64;
+   description: text;
+   machineId: MachineId;
+   name: text;
+   sequence: nat;
+   standardTime: float64;
+ };
+type CreateRoleInput = 
+ record {
+   description: text;
+   roleName: text;
+   screens: vec text;
+ };
+type CreateRequisitionInput = 
+ record {
+   items: vec RequisitionItem;
+   moId: ManufacturingOrderId;
+   requestedBy: text;
+ };
+type CreateRefundRequestInput = 
+ record {
+   amount: float64;
+   orgId: OrgId;
+   period: text;
+   reason: text;
+   refundType: text;
+ };
+type CreateReceiptInput = 
+ record {
+   amount: float64;
+   customerId: nat;
+   invoiceId: opt nat;
+   isAdvance: bool;
+   paymentMode: PaymentMode__1;
+   receiptDate: Timestamp;
+   reference: text;
+ };
+type CreateQuotationInput = 
+ record {
+   customerId: nat;
+   customerName: text;
+   lineItems: vec LineItem;
+   notes: text;
+   validUntil: Timestamp;
+ };
+type CreateQualityControlInput = 
+ record {
+   defects: vec text;
+   failQty: float64;
+   inspectionDate: Timestamp;
+   inspector: text;
+   moId: ManufacturingOrderId;
+   notes: text;
+   passQty: float64;
+   result: QcResult;
+ };
+type CreatePurchaseReturnInput = 
+ record {
+   billId: nat;
+   items: vec ReturnItem;
+   reason: text;
+   supplier: text;
+ };
+type CreatePurchaseOrderInput = 
+ record {
+   lineItems: vec LineItem;
+   notes: text;
+   supplierId: nat;
+   supplierName: text;
+ };
+type CreatePurchaseBillInput = 
+ record {
+   amountPaid: float64;
+   dueDate: Timestamp;
+   lineItems: vec LineItem;
+   notes: text;
+   poId: opt nat;
+   supplierId: nat;
+   supplierName: text;
+ };
+type CreateProductionPlanInput = 
+ record {
+   period: text;
+   status: text;
+   targetQty: float64;
+   workOrderIds: vec WorkOrderId;
+ };
+type CreateProductInput = 
+ record {
+   categoryId: opt CategoryId;
+   description: text;
+   hsnCode: text;
+   name: text;
+   orgId: OrgId;
+   partNumber: text;
+   rate: float64;
+   stockQty: nat;
+   taxPercent: nat;
+   unit: text;
+ };
+type CreatePosTransactionInput = 
+ record {
+   customerId: opt nat;
+   customerName: opt text;
+   items: vec PosItem;
+   paymentMode: PaymentMode__1;
+ };
+type CreatePayrollInput = 
+ record {
+   month: nat;
+   year: nat;
+ };
+type CreateNotificationInput = 
+ record {
+   companyId: text;
+   message: text;
+   targetEmployeeId: opt text;
+   title: text;
+ };
+type CreateManufacturingOrderInput = 
+ record {
+   dueDate: Timestamp;
+   quantity: float64;
+   startDate: Timestamp;
+   workOrderId: WorkOrderId;
+ };
+type CreateMachineInput = 
+ record {
+   capacity: float64;
+   capacityUnit: text;
+   code: text;
+   lastMaintenance: opt Timestamp;
+   location: text;
+   machineType: text;
+   name: text;
+   status: MachineStatus;
+ };
+type CreateLocationInput = 
+ record {
+   email: text;
+   locationCode: text;
+   locationName: text;
+   state: text;
+ };
+type CreateItemMasterInput = 
+ record {
+   attributes: vec ItemAttribute_;
+   barcode: text;
+   categoryId: opt nat;
+   categoryName: text;
+   description: text;
+   enableBatch: bool;
+   enableSerial: bool;
+   enableShelfLife: bool;
+   hsnCode: text;
+   itemCode: text;
+   name: text;
+   partNumber: text;
+   rate: float64;
+   taxPct: float64;
+   uomId: opt nat;
+   uomName: text;
+ };
+type CreateItemAttributeInput = 
+ record {
+   name: text;
+   "type": AttributeType;
+   values: vec text;
+ };
+type CreateInvoiceInput = 
+ record {
+   billTo: BillTo;
+   currency: text;
+   dueDate: Timestamp;
+   lineItems: vec LineItem__2;
+   notes: opt text;
+   taxPercent: float64;
+ };
+type CreateInventoryCategoryInput = 
+ record {
+   description: text;
+   isActive: bool;
+   name: text;
+   parentId: opt nat;
+ };
+type CreateIncentiveSchemeInput = 
+ record {
+   category: text;
+   effectiveFrom: Timestamp;
+   effectiveTo: opt Timestamp;
+   rewardType: RewardType;
+   rewardValue: float64;
+   schemeName: text;
+   targetMetric: TargetMetric;
+   targetValue: float64;
+ };
+type CreateHsnSacCodeInput = 
+ record {
+   category: text;
+   codeType: HsnSacCodeType;
+   description: text;
+   hsnCode: opt text;
+   isActive: bool;
+   name: text;
+   sacCode: opt text;
+ };
+type CreateGroupInput = 
+ record {
+   description: text;
+   groupName: text;
+   parentGroup: opt nat;
+ };
+type CreateFinishedGoodInput = 
+ record {
+   batchNo: text;
+   expiryDate: opt Timestamp;
+   moId: ManufacturingOrderId;
+   productId: nat;
+   productionDate: Timestamp;
+   quantity: float64;
+   status: text;
+   warehouseLocation: text;
+ };
+type CreateFinanceCategoryInput = 
+ record {
+   categoryType: FinanceCategoryType;
+   description: text;
+   isActive: bool;
+   name: text;
+   parentId: opt text;
+ };
+type CreateEmployeeInput__1 = 
+ record {
+   companyId: text;
+   department: text;
+   designation: text;
+   email: text;
+   modulePermissions: vec record {
+                            text;
+                            bool;
+                          };
+   name: text;
+   password: text;
+ };
+type CreateEmployeeInput = 
+ record {
+   department: text;
+   designation: text;
+   email: text;
+   employeeCode: text;
+   joiningDate: text;
+   name: text;
+   phone: text;
+   salaryGrade: text;
+ };
+type CreateDebitNoteInput__1 = 
+ record {
+   amount: float64;
+   billId: nat;
+   reason: text;
+   supplier: text;
+ };
+type CreateDebitNoteInput = 
+ record {
+   amount: float64;
+   customer: text;
+   invoiceId: nat;
+   reason: text;
+ };
+type CreateCreditNoteInput__1 = 
+ record {
+   amount: float64;
+   billId: nat;
+   reason: text;
+   supplier: text;
+ };
+type CreateCreditNoteInput = 
+ record {
+   amount: float64;
+   customer: text;
+   invoiceId: nat;
+   reason: text;
+ };
+type CreateCostOfProductionInput = 
+ record {
+   labourCost: float64;
+   materialCost: float64;
+   moId: ManufacturingOrderId;
+   notes: text;
+   overheadCost: float64;
+   period: text;
+   scrapCost: float64;
+ };
+type CreateCategoryInput = 
+ record {
+   description: text;
+   name: text;
+   orgId: OrgId;
+ };
+type CreateBomInput = 
+ record {
+   components: vec BomComponent;
+   productName: text;
+   revision: text;
+   status: text;
+ };
+type CreateAttendanceInput = 
+ record {
+   attendanceType: AttendanceType;
+   date: text;
+   employeeId: nat;
+   notes: text;
+   punchIn: opt text;
+   punchOut: opt text;
+   totalHours: float64;
+ };
+type CourierProvider = 
+ variant {
+   bluedart;
+   delhivery;
+   fedex;
+   manual;
+ };
+type CostOfProductionId = nat;
+type CostOfProduction = 
+ record {
+   createdAt: Timestamp;
+   enabled: bool;
+   id: CostOfProductionId;
+   labourCost: float64;
+   materialCost: float64;
+   moId: ManufacturingOrderId;
+   notes: text;
+   orgId: OrgId;
+   overheadCost: float64;
+   period: text;
+   scrapCost: float64;
+   totalCost: float64;
+ };
+type ContactSortField = 
+ variant {
+   company;
+   createdAt;
+   name;
+ };
+type ContactInput = 
+ record {
+   company: opt text;
+   email: opt text;
+   name: text;
+   phone: opt text;
+   tags: vec text;
+ };
+type ContactId = nat;
+type Contact = 
+ record {
+   company: opt text;
+   createdAt: Timestamp;
+   createdBy: principal;
+   email: opt text;
+   id: ContactId;
+   name: text;
+   orgId: OrgId;
+   phone: opt text;
+   tags: vec text;
+   updatedAt: Timestamp;
+ };
+type CategoryId = nat;
+type CategoryExpense = 
+ record {
+   amount: nat;
+   category: TransactionCategory;
+ };
+type Category = 
+ record {
+   createdAt: Timestamp;
+   createdBy: principal;
+   description: text;
+   id: CategoryId;
+   name: text;
+   orgId: OrgId;
+ };
+type CashFlowForecast = 
+ record {
+   date: Timestamp;
+   projectedBalance: int;
+ };
+type BulkImportResult = 
+ record {
+   errors: vec BulkImportError;
+   successCount: nat;
+ };
+type BulkImportError = 
+ record {
+   index: nat;
+   message: text;
+ };
+type BomId = nat;
+type BomComponent = 
+ record {
+   cost: float64;
+   itemId: nat;
+   quantity: float64;
+   unit: text;
+ };
+type BillingEntry = 
+ record {
+   amount: nat;
+   currency: text;
+   description: text;
+   id: nat;
+   orgId: OrgId;
+   paidAt: Timestamp;
+   stripeInvoiceId: opt text;
+ };
+type BillTo = 
+ record {
+   address: opt text;
+   contactId: opt nat;
+   dealId: opt nat;
+   email: text;
+   name: text;
+   taxId: opt text;
+ };
+type BillStatus = 
+ variant {
+   approved;
+   draft;
+   overdue;
+   paid;
+   partially_paid;
+ };
+type BillOfMaterial = 
+ record {
+   components: vec BomComponent;
+   createdAt: Timestamp;
+   enabled: bool;
+   id: BomId;
+   orgId: OrgId;
+   productName: text;
+   revision: text;
+   status: text;
+ };
+type AttributeType = 
+ variant {
+   list;
+   number;
+   "text";
+ };
+type AttendanceType = 
+ variant {
+   absent;
+   halfDay;
+   leave;
+   present;
+ };
+type Attendance = 
+ record {
+   attendanceType: AttendanceType;
+   createdAt: int;
+   date: text;
+   employeeId: nat;
+   id: nat;
+   notes: text;
+   orgId: nat;
+   punchIn: opt text;
+   punchOut: opt text;
+   totalHours: float64;
+ };
+type AssignRoleInput = 
+ record {
+   roleId: nat;
+   userId: principal;
+ };
+type AdminNotification = 
+ record {
+   companyId: text;
+   createdAt: int;
+   id: text;
+   message: text;
+   readBy: vec text;
+   targetEmployeeId: opt text;
+   title: text;
+ };
+service : {
+  _initializeAccessControl: () -> ();
+  acceptInvite: (inviteId: nat) -> ();
+  acknowledgeGstReturn: (gstReturnId: GstReturnId, orgId: OrgId) ->
+   (opt GstReturn);
+  addDealNote: (orgId: OrgId, input: DealNoteInput) -> (NoteId);
+  addInteractionNote: (orgId: OrgId, input: InteractionNoteInput) -> (NoteId);
+  addTransaction: (orgId: OrgId, input: TransactionInput) -> (Transaction);
+  approvePurchaseOrder: (orgId: OrgId, id: nat) -> (PurchaseOrder);
+  assignCallerUserRole: (user: principal, role: UserRole) -> ();
+  assignUserRole: (orgId: OrgId, input: AssignRoleInput) ->
+   (UserRoleAssignment);
+  bulkImportProducts: (inputs: vec CreateProductInput) ->
+   (variant {
+      notAuthorized;
+      ok: BulkImportResult;
+    });
+  cancelInvite: (inviteId: nat) -> ();
+  changePlan: (orgId: OrgId, newPlan: PlanTier) -> ();
+  checkInvoicePaymentStatus: (orgId: OrgId, id: InvoiceId) -> (text);
+  confirmSalesOrder: (orgId: OrgId, id: nat) -> (SalesOrder);
+  confirmSubscription: (orgId: OrgId, sessionId: text) -> ();
+  convertQuotationToSalesOrder: (orgId: OrgId, quoteId: nat) -> (SalesOrder);
+  createAdminNotification: (input: CreateNotificationInput) ->
+   (AdminNotification);
+  createBom: (orgId: OrgId, input: CreateBomInput) -> (BillOfMaterial);
+  createCategory: (input: CreateCategoryInput) ->
+   (variant {
+      notAuthorized;
+      ok: Category;
+    });
+  createCheckoutSession: (items: vec ShoppingItem, successUrl: text,
+   cancelUrl: text) -> (text);
+  createContact: (orgId: OrgId, input: ContactInput) -> (ContactId);
+  createCostOfProduction: (orgId: OrgId, input:
+   CreateCostOfProductionInput) -> (CostOfProduction);
+  createCustomerReceipt: (orgId: OrgId, input: CreateReceiptInput) ->
+   (CustomerReceipt);
+  createDeal: (orgId: OrgId, input: DealInput) -> (DealId);
+  createExtendedLead: (orgId: OrgId, input: ExtendedLeadInput) ->
+   (ExtendedLead);
+  createFinanceCategory: (orgId: OrgId, input: CreateFinanceCategoryInput) ->
+   (FinanceCategory);
+  createFinishedGood: (orgId: OrgId, input: CreateFinishedGoodInput) ->
+   (FinishedGood);
+  createGroup: (orgId: OrgId, input: CreateGroupInput) -> (Group_);
+  createHsnSacCode: (orgId: OrgId, input: CreateHsnSacCodeInput) ->
+   (HsnSacCode);
+  createIncentiveScheme: (orgId: OrgId, input: CreateIncentiveSchemeInput) ->
+   (IncentiveScheme);
+  createInventoryCategory: (orgId: OrgId, input:
+   CreateInventoryCategoryInput) -> (InventoryCategory);
+  createInvoice: (orgId: OrgId, input: CreateInvoiceInput) -> (InvoiceView);
+  createItemAttribute: (orgId: OrgId, input: CreateItemAttributeInput) ->
+   (ItemAttributeDef);
+  createItemMaster: (orgId: OrgId, input: CreateItemMasterInput) ->
+   (ItemMaster);
+  createLead: (orgId: OrgId, input: LeadInput) -> (LeadId);
+  createLocation: (orgId: OrgId, input: CreateLocationInput) -> (Location);
+  createMachine: (orgId: OrgId, input: CreateMachineInput) -> (Machine);
+  createManufacturingOrder: (orgId: OrgId, input:
+   CreateManufacturingOrderInput) -> (ManufacturingOrder);
+  createOrg: (name: text, slug: text, timezone: text, orgType: OrgType,
+   gstin: opt text, pan: opt text, address: opt OrgAddress, contactPerson:
+   opt OrgContactPerson) -> (OrgId);
+  createPortalEmployee: (input: CreateEmployeeInput__1) ->
+   (variant {
+      err: text;
+      ok: PortalEmployee;
+    });
+  createPortalTask: (input: CreateTaskInput) -> (PortalTask);
+  createPosTransaction: (orgId: OrgId, input: CreatePosTransactionInput) ->
+   (PosTransaction);
+  createProduct: (input: CreateProductInput) ->
+   (variant {
+      notAuthorized;
+      ok: Product;
+    });
+  createProductionPlan: (orgId: OrgId, input: CreateProductionPlanInput) ->
+   (ProductionPlan);
+  createPurchaseBill: (orgId: OrgId, input: CreatePurchaseBillInput) ->
+   (PurchaseBill);
+  createPurchaseCreditNote: (orgId: OrgId, input:
+   CreateCreditNoteInput__1) -> (PurchaseCreditNote);
+  createPurchaseDebitNote: (orgId: OrgId, input: CreateDebitNoteInput__1) ->
+   (PurchaseDebitNote);
+  createPurchaseOrder: (orgId: OrgId, input: CreatePurchaseOrderInput) ->
+   (PurchaseOrder);
+  createPurchaseReturn: (orgId: OrgId, input: CreatePurchaseReturnInput) ->
+   (PurchaseReturn);
+  createQualityControl: (orgId: OrgId, input: CreateQualityControlInput) ->
+   (QualityControl);
+  createQuotation: (orgId: OrgId, input: CreateQuotationInput) -> (Quotation);
+  createRawMaterialRequisition: (orgId: OrgId, input:
+   CreateRequisitionInput) -> (RawMaterialRequisition);
+  createRefundRequest: (input: CreateRefundRequestInput) ->
+   (GstRefundRequest);
+  createRole: (orgId: OrgId, input: CreateRoleInput) -> (Role);
+  createRoutingOperation: (orgId: OrgId, input:
+   CreateRoutingOperationInput) -> (RoutingOperation);
+  createSaleCreditNote: (orgId: OrgId, input: CreateCreditNoteInput) ->
+   (SaleCreditNote);
+  createSaleDebitNote: (orgId: OrgId, input: CreateDebitNoteInput) ->
+   (SaleDebitNote);
+  createSaleReturn: (orgId: OrgId, input: CreateSaleReturnInput) ->
+   (SaleReturn);
+  createSalesOrder: (orgId: OrgId, input: CreateSalesOrderInput) ->
+   (SalesOrder);
+  createScrapRecord: (orgId: OrgId, input: CreateScrapRecordInput) ->
+   (ScrapRecord);
+  createShipment: (orgId: OrgId, input: CreateShipmentInput) -> (Shipment);
+  createShopFloorControl: (orgId: OrgId, input: CreateShopFloorInput) ->
+   (ShopFloorControl);
+  createSubscriptionCheckout: (orgId: OrgId, plan: PlanTier, successUrl:
+   text, cancelUrl: text) -> (text);
+  createSupplierPayment: (orgId: OrgId, input: CreateSupplierPaymentInput) ->
+   (SupplierPayment);
+  createUom: (orgId: OrgId, input: CreateUomInput) -> (UnitOfMeasure);
+  createWorkOrder: (orgId: OrgId, input: CreateWorkOrderInput) -> (WorkOrder);
+  deactivatePortalEmployee: (employeeId: text) -> (variant {
+                                                     err: text;
+                                                     ok;
+                                                   });
+  deductProductStock: (productId: ProductId, orgId: OrgId, qty: nat) ->
+   (bool);
+  deleteBom: (orgId: OrgId, id: nat) -> ();
+  deleteCategory: (orgId: OrgId, categoryId: CategoryId) ->
+   (variant {
+      notAuthorized;
+      notFound;
+      ok;
+    });
+  deleteContact: (orgId: OrgId, id: ContactId) -> (bool);
+  deleteCostOfProduction: (orgId: OrgId, id: nat) -> ();
+  deleteDeal: (orgId: OrgId, id: DealId) -> (bool);
+  deleteFinanceCategory: (orgId: OrgId, id: text) -> (bool);
+  deleteFinishedGood: (orgId: OrgId, id: nat) -> ();
+  deleteGroup: (orgId: OrgId, id: nat) -> (bool);
+  deleteHsnSacCode: (orgId: OrgId, id: text) -> (bool);
+  deleteIncentiveScheme: (orgId: OrgId, id: nat) -> ();
+  deleteInventoryCategory: (orgId: OrgId, id: nat) -> (bool);
+  deleteItemAttribute: (orgId: OrgId, id: nat) -> (bool);
+  deleteItemMaster: (orgId: OrgId, id: nat) -> (bool);
+  deleteLocation: (orgId: OrgId, id: nat) -> (bool);
+  deleteMachine: (orgId: OrgId, id: nat) -> ();
+  deleteManufacturingOrder: (orgId: OrgId, id: nat) -> ();
+  deleteNotification: (id: NotificationId) -> (bool);
+  deleteOrg: (orgId: OrgId) -> ();
+  deletePortalTask: (id: text) -> (variant {
+                                     err: text;
+                                     ok;
+                                   });
+  deleteProduct: (orgId: OrgId, productId: ProductId) ->
+   (variant {
+      notAuthorized;
+      notFound;
+      ok;
+    });
+  deleteProductionPlan: (orgId: OrgId, id: nat) -> ();
+  deletePurchaseBill: (orgId: OrgId, id: nat) -> ();
+  deletePurchaseOrder: (orgId: OrgId, id: nat) -> ();
+  deleteQualityControl: (orgId: OrgId, id: nat) -> ();
+  deleteRawMaterialRequisition: (orgId: OrgId, id: nat) -> ();
+  deleteRole: (orgId: OrgId, id: nat) -> (bool);
+  deleteRoutingOperation: (orgId: OrgId, id: nat) -> ();
+  deleteScrapRecord: (orgId: OrgId, id: nat) -> ();
+  deleteShipment: (orgId: OrgId, id: nat) -> (bool);
+  deleteShopFloorControl: (orgId: OrgId, id: nat) -> ();
+  deleteTrafficEvents: (orgId: text, ids: vec text) ->
+   (variant {
+      err: text;
+      ok: nat;
+    });
+  deleteUom: (orgId: OrgId, id: nat) -> (bool);
+  deleteWorkOrder: (orgId: OrgId, id: nat) -> ();
+  exportContactsCsv: (orgId: OrgId) -> (text) query;
+  generateGstReturn: (orgId: OrgId, year: nat, month: nat, returnType:
+   GstReturnType) -> (GstReturn);
+  getCallerUserProfile: () -> (opt UserProfile) query;
+  getCallerUserRole: () -> (UserRole) query;
+  getCashFlowForecast: (orgId: OrgId) -> (vec CashFlowForecast);
+  getContact: (orgId: OrgId, id: ContactId) -> (opt Contact) query;
+  getDeal: (orgId: OrgId, id: DealId) -> (opt Deal) query;
+  getErpModuleEnabled: (orgId: OrgId) -> (bool) query;
+  getFinanceDashboard: (orgId: OrgId) -> (FinanceDashboard);
+  getGstReturn: (gstReturnId: GstReturnId, orgId: OrgId) ->
+   (opt GstReturn) query;
+  getInvoice: (orgId: OrgId, id: InvoiceId) -> (opt InvoiceView) query;
+  getItemMaster: (orgId: OrgId, id: nat) -> (opt ItemMaster) query;
+  getLeadByContact: (orgId: OrgId, contactId: ContactId) -> (opt Lead) query;
+  getModuleVisibility: (orgId: OrgId) -> (vec record {
+                                                text;
+                                                bool;
+                                              }) query;
+  getMonthlySummary: (orgId: OrgId, year: nat, month: nat) ->
+   (MonthlySummary) query;
+  getMyRole: (orgId: OrgId) -> (opt OrgRole) query;
+  getOrg: (orgId: OrgId) -> (Org) query;
+  getOrgBillingInfo: (orgId: OrgId) -> (opt OrgBillingInfo) query;
+  getOrgConfiguration: (orgId: OrgId) -> (OrgConfiguration);
+  getOrgSubscription: (orgId: OrgId) -> (opt OrgSubscription) query;
+  getPipelineSummary: (orgId: OrgId) -> (PipelineSummary) query;
+  getPortalApiKeys: (orgId: OrgId) -> (vec PortalApiKeyInfo) query;
+  getPortalDashboardLayout: (adminEmail: text) -> (opt DashboardLayout) query;
+  getProduct: (orgId: OrgId, productId: ProductId) ->
+   (variant {
+      notAuthorized;
+      notFound;
+      ok: Product;
+    }) query;
+  getRefundRequest: (orgId: OrgId, id: nat) -> (opt GstRefundRequest) query;
+  getShipment: (orgId: OrgId, id: nat) -> (opt Shipment) query;
+  getStripeSessionStatus: (sessionId: text) -> (StripeSessionStatus);
+  getSubscription: (orgId: OrgId) -> (opt OrgSubscription) query;
+  getTrafficSummary: (orgId: text) ->
+   (variant {
+      err: text;
+      ok: TrafficSummary;
+    }) query;
+  getUnreadCount: (orgId: OrgId__15) -> (nat) query;
+  getWorkOrder: (orgId: OrgId, id: nat) -> (opt WorkOrder) query;
+  hrCreateAttendance: (orgId: nat, input: CreateAttendanceInput) ->
+   (Attendance);
+  hrCreateEmployee: (orgId: nat, input: CreateEmployeeInput) -> (Employee);
+  hrCreateSlip: (orgId: nat, input: CreateSlipInput) -> (SalarySlip);
+  hrDeleteAttendance: (orgId: nat, id: nat) -> ();
+  hrDeleteEmployee: (orgId: nat, id: nat) -> ();
+  hrDeleteSlip: (orgId: nat, id: nat) -> ();
+  hrGetEmployee: (orgId: nat, id: nat) -> (opt Employee) query;
+  hrGetPfEsiConfig: (orgId: nat) -> (opt PfEsiConfig) query;
+  hrListAttendance: (orgId: nat, employeeId: opt nat) ->
+   (vec Attendance) query;
+  hrListEmployees: (orgId: nat) -> (vec Employee) query;
+  hrListPayrolls: (orgId: nat) -> (vec Payroll) query;
+  hrListSlips: (orgId: nat, employeeId: opt nat) -> (vec SalarySlip) query;
+  hrProcessPayroll: (orgId: nat, input: CreatePayrollInput) -> (Payroll);
+  hrToggleEmployee: (orgId: nat, id: nat) -> (Employee);
+  hrUpdateAttendance: (orgId: nat, input: UpdateAttendanceInput) ->
+   (Attendance);
+  hrUpdateEmployee: (orgId: nat, input: UpdateEmployeeInput) -> (Employee);
+  hrUpdatePayrollStatus: (orgId: nat, id: nat, status: PayrollStatus) ->
+   (Payroll);
+  hrUpdateSlip: (orgId: nat, input: UpdateSlipInput) -> (SalarySlip);
+  hrUpsertPfEsiConfig: (orgId: nat, input: UpsertPfEsiInput) -> (PfEsiConfig);
+  importLeadsFromCsv: (orgId: OrgId, csvRows: vec CsvLeadRow) ->
+   (ImportResult);
+  inviteMember: (orgId: OrgId, email: text, role: OrgRole) -> (PendingInvite);
+  isCallerAdmin: () -> (bool) query;
+  isInvoiceStripeConfigured: (orgId: OrgId) -> (bool) query;
+  isSlugAvailable: (slug: text) -> (bool) query;
+  isStripeConfigured: () -> (bool) query;
+  listAdminNotifications: (companyId: text, employeeId: text) ->
+   (vec AdminNotification) query;
+  listBillingHistory: (orgId: OrgId) -> (vec BillingEntry) query;
+  listBoms: (orgId: OrgId) -> (vec BillOfMaterial) query;
+  listCategories: (orgId: OrgId) ->
+   (variant {
+      notAuthorized;
+      ok: vec Category;
+    }) query;
+  listContacts: (orgId: OrgId, search: opt text, tag: opt text, sortField:
+   opt ContactSortField, sortAsc: bool) -> (vec Contact) query;
+  listCostsOfProduction: (orgId: OrgId) -> (vec CostOfProduction) query;
+  listCustomerReceipts: (orgId: OrgId) -> (vec CustomerReceipt) query;
+  listDealNotes: (orgId: OrgId, dealId: DealId) -> (vec DealNote) query;
+  listDealStageHistory: (orgId: OrgId, dealId: DealId) ->
+   (vec DealStageEvent) query;
+  listDeals: (orgId: OrgId) -> (vec Deal) query;
+  listFinanceCategories: (orgId: OrgId, filter: FinanceCategoryFilter) ->
+   (vec FinanceCategory) query;
+  listFinishedGoods: (orgId: OrgId) -> (vec FinishedGood) query;
+  listGroups: (orgId: OrgId) -> (vec Group_) query;
+  listGstReturns: (orgId: OrgId) -> (vec GstReturn) query;
+  listHsnSacCodes: (orgId: OrgId, filter: HsnSacFilter) ->
+   (vec HsnSacCode) query;
+  listIncentiveSchemes: (orgId: OrgId) -> (vec IncentiveScheme) query;
+  listInteractionNotes: (orgId: OrgId, contactId: ContactId) ->
+   (vec InteractionNote) query;
+  listInventoryCategories: (orgId: OrgId, parentId: opt opt nat) ->
+   (vec InventoryCategory) query;
+  listInvoices: (orgId: OrgId) -> (vec InvoiceView) query;
+  listItemAttributes: (orgId: OrgId) -> (vec ItemAttributeDef) query;
+  listItemMasters: (orgId: OrgId, searchText: opt text) ->
+   (vec ItemMaster) query;
+  listLeads: (orgId: OrgId, statusFilter: opt LeadStatus) ->
+   (vec ExtendedLead) query;
+  listLocations: (orgId: OrgId) -> (vec Location) query;
+  listMachines: (orgId: OrgId) -> (vec Machine) query;
+  listManufacturingOrders: (orgId: OrgId) -> (vec ManufacturingOrder) query;
+  listMembers: (orgId: OrgId) -> (vec OrgMember) query;
+  listMyOrgs: () -> (vec OrgSummary) query;
+  listNotifications: (orgId: OrgId__15) -> (vec Notification) query;
+  listPendingInvites: (orgId: OrgId) -> (vec PendingInvite) query;
+  listPermissions: (orgId: OrgId, roleId: opt nat) -> (vec Permission) query;
+  listPortalEmployees: (companyId: text) -> (vec PortalEmployee) query;
+  listPortalSyncHistory: (orgId: OrgId, portal: PortalType) ->
+   (vec SyncRecord) query;
+  listPortalTasks: (companyId: text, employeeId: opt text) ->
+   (vec PortalTask) query;
+  listPosTransactions: (orgId: OrgId) -> (vec PosTransaction) query;
+  listProductionPlans: (orgId: OrgId) -> (vec ProductionPlan) query;
+  listProducts: (orgId: OrgId) ->
+   (variant {
+      notAuthorized;
+      ok: vec Product;
+    }) query;
+  listPurchaseBills: (orgId: OrgId) -> (vec PurchaseBill) query;
+  listPurchaseCreditNotes: (orgId: OrgId) -> (vec PurchaseCreditNote) query;
+  listPurchaseDebitNotes: (orgId: OrgId) -> (vec PurchaseDebitNote) query;
+  listPurchaseOrders: (orgId: OrgId) -> (vec PurchaseOrder) query;
+  listPurchaseReturns: (orgId: OrgId) -> (vec PurchaseReturn) query;
+  listQualityControls: (orgId: OrgId) -> (vec QualityControl) query;
+  listQuotations: (orgId: OrgId) -> (vec Quotation) query;
+  listRawMaterialRequisitions: (orgId: OrgId) ->
+   (vec RawMaterialRequisition) query;
+  listRefundRequests: (orgId: OrgId) -> (vec GstRefundRequest) query;
+  listRoles: (orgId: OrgId) -> (vec Role) query;
+  listRoutingOperations: (orgId: OrgId) -> (vec RoutingOperation) query;
+  listSaleCreditNotes: (orgId: OrgId) -> (vec SaleCreditNote) query;
+  listSaleDebitNotes: (orgId: OrgId) -> (vec SaleDebitNote) query;
+  listSaleReturns: (orgId: OrgId) -> (vec SaleReturn) query;
+  listSalesOrders: (orgId: OrgId) -> (vec SalesOrder) query;
+  listScrapRecords: (orgId: OrgId) -> (vec ScrapRecord) query;
+  listShipments: (orgId: OrgId, statusFilter: opt ShipmentStatus, fromDate:
+   opt int, toDate: opt int) -> (vec Shipment) query;
+  listShopFloorControls: (orgId: OrgId) -> (vec ShopFloorControl) query;
+  listStockLevels: (orgId: OrgId, locationId: opt nat) ->
+   (vec StockLevel) query;
+  listSupplierPayments: (orgId: OrgId) -> (vec SupplierPayment) query;
+  listTransactions: (orgId: OrgId, filter: TransactionFilter) ->
+   (vec LedgerEntry) query;
+  listUoms: (orgId: OrgId) -> (vec UnitOfMeasure) query;
+  listUserRoleAssignments: (orgId: OrgId, userId: opt principal) ->
+   (vec UserRoleAssignment) query;
+  listWorkOrders: (orgId: OrgId) -> (vec WorkOrder) query;
+  logTraffic: (orgId: text, page: text, referrer: text, sourceType:
+   TrafficSource, sessionId: text) -> (variant {
+                                         err: text;
+                                         ok: text;
+                                       });
+  loginPortalAdmin: (email: text, password: text) ->
+   (variant {
+      err: text;
+      ok: PortalAdminSession;
+    });
+  loginPortalEmployee: (employeeId: text, password: text) ->
+   (variant {
+      err: text;
+      ok: PortalEmployeeSession;
+    });
+  markAllNotificationsRead: (orgId: OrgId__15) -> (nat);
+  markInvoicePaid: (orgId: OrgId, id: InvoiceId) -> (InvoiceView);
+  markNotificationRead: (id: NotificationId) -> (bool);
+  markPortalNotificationRead: (id: text, employeeId: text) ->
+   (variant {
+      err: text;
+      ok;
+    });
+  publishNotification: (orgId: OrgId__15, notifType: NotifType, title: 
+   text, message: text) -> (NotificationId);
+  purgeTrafficEvents: (orgId: text, cutoff: int) -> (variant {
+                                                       err: text;
+                                                       ok;
+                                                     });
+  queryTrafficReport: (q: TrafficQuery) ->
+   (variant {
+      err: text;
+      ok: vec TrafficEvent;
+    }) query;
+  registerPortalCompany: (input: RegisterCompanyInput) ->
+   (variant {
+      err: text;
+      ok: PortalAdminSession;
+    });
+  registerPortalGroup: (input: RegisterGroupInput) ->
+   (variant {
+      err: text;
+      ok: text;
+    });
+  registerPortalIndividual: (input: RegisterIndividualInput) ->
+   (variant {
+      err: text;
+      ok: text;
+    });
+  removeMember: (orgId: OrgId, target: principal) -> ();
+  revokeUserRole: (orgId: OrgId, assignmentId: nat) -> (bool);
+  saveCallerUserProfile: (profile: UserProfile) -> ();
+  savePortalApiKey: (orgId: OrgId, portal: PortalType, apiKey: text) -> ();
+  savePortalDashboardLayout: (adminEmail: text, widgetConfig: text) ->
+   (DashboardLayout);
+  searchByHsn: (orgId: OrgId, prefix: text) -> (vec Product) query;
+  searchByPartNumber: (orgId: OrgId, prefix: text) -> (vec Product) query;
+  sendInvoice: (orgId: OrgId, id: InvoiceId, successUrl: text, cancelUrl:
+   text) -> (text);
+  setErpModuleEnabled: (orgId: OrgId, enabled: bool) -> ();
+  setInvoiceStripeConfig: (orgId: OrgId, config: StripeConfig) -> ();
+  setModuleVisibility: (orgId: OrgId, module: text, enabled: bool) -> ();
+  setOrgBillingInfo: (orgId: OrgId, info: OrgBillingInfo) -> ();
+  setOrgSubscription: (orgId: OrgId, sub: OrgSubscription) -> ();
+  setPermission: (orgId: OrgId, input: SetPermissionsInput) -> (Permission);
+  setStripeConfiguration: (config: StripeConfiguration) -> ();
+  submitGstReturn: (gstReturnId: GstReturnId, orgId: OrgId) ->
+   (opt GstReturn);
+  subscribeToNotifications: (orgId: OrgId__15) -> ();
+  syncPortalLeads: (orgId: OrgId, portal: PortalType) -> (SyncResult);
+  trackShipment: (orgId: OrgId, id: nat) -> (opt TrackingInfo) query;
+  transform: (input: TransformationInput) -> (TransformationOutput) query;
+  transformInvoice: (input:
+   record {
+     context: blob;
+     response:
+      record {
+        body: blob;
+        headers: vec record {
+                       name: text;
+                       value: text;
+                     };
+        status: nat;
+      };
+   }) ->
+   (record {
+      body: blob;
+      headers: vec record {
+                     name: text;
+                     value: text;
+                   };
+      status: nat;
+    }) query;
+  updateBom: (orgId: OrgId, input: UpdateBomInput) -> (BillOfMaterial);
+  updateCategory: (input: UpdateCategoryInput) ->
+   (variant {
+      notAuthorized;
+      notFound;
+      ok: Category;
+    });
+  updateContact: (orgId: OrgId, id: ContactId, input: ContactInput) -> (bool);
+  updateCostOfProduction: (orgId: OrgId, input:
+   UpdateCostOfProductionInput) -> (CostOfProduction);
+  updateDeal: (orgId: OrgId, id: DealId, input: DealInput) -> (bool);
+  updateExtendedLeadStatus: (orgId: OrgId, leadId: LeadId, newStatus:
+   LeadStatus) -> (bool);
+  updateFinanceCategory: (orgId: OrgId, input: UpdateFinanceCategoryInput) ->
+   (opt FinanceCategory);
+  updateFinishedGood: (orgId: OrgId, input: UpdateFinishedGoodInput) ->
+   (FinishedGood);
+  updateGroup: (orgId: OrgId, input: UpdateGroupInput) -> (opt Group_);
+  updateHsnSacCode: (orgId: OrgId, input: UpdateHsnSacCodeInput) ->
+   (opt HsnSacCode);
+  updateIncentiveScheme: (orgId: OrgId, input: UpdateIncentiveSchemeInput) ->
+   (IncentiveScheme);
+  updateInventoryCategory: (orgId: OrgId, input:
+   UpdateInventoryCategoryInput) -> (opt InventoryCategory);
+  updateInvoice: (orgId: OrgId, input: UpdateInvoiceInput) -> (InvoiceView);
+  updateItemMaster: (orgId: OrgId, input: UpdateItemMasterInput) ->
+   (opt ItemMaster);
+  updateLocation: (orgId: OrgId, input: UpdateLocationInput) ->
+   (opt Location);
+  updateMachine: (orgId: OrgId, input: UpdateMachineInput) -> (Machine);
+  updateManufacturingOrder: (orgId: OrgId, input:
+   UpdateManufacturingOrderInput) -> (ManufacturingOrder);
+  updateMemberRole: (orgId: OrgId, target: principal, newRole: OrgRole) -> ();
+  updateOrg: (orgId: OrgId, name: text, slug: text, timezone: text, orgType:
+   OrgType, gstin: opt text, pan: opt text, address: opt OrgAddress,
+   contactPerson: opt OrgContactPerson) -> ();
+  updateOrgConfiguration: (orgId: OrgId, input:
+   UpdateOrgConfigurationInput) -> (OrgConfiguration);
+  updatePortalEmployee: (employeeId: text, name: opt text, designation:
+   opt text, department: opt text, modulePermissions:
+   opt vec record {
+             text;
+             bool;
+           }) -> (variant {
+                    err: text;
+                    ok: PortalEmployee;
+                  });
+  updatePortalTask: (id: text, title: opt text, description: opt text,
+   assignedTo: opt text, priority: opt TaskPriority, dueDate: opt int,
+   fileUrl: opt text) -> (variant {
+                            err: text;
+                            ok: PortalTask;
+                          });
+  updatePortalTaskStatus: (id: text, status: TaskStatus) ->
+   (variant {
+      err: text;
+      ok: PortalTask;
+    });
+  updateProduct: (input: UpdateProductInput) ->
+   (variant {
+      notAuthorized;
+      notFound;
+      ok: Product;
+    });
+  updateProductionPlan: (orgId: OrgId, input: UpdateProductionPlanInput) ->
+   (ProductionPlan);
+  updatePurchaseBill: (orgId: OrgId, input: UpdatePurchaseBillInput) ->
+   (PurchaseBill);
+  updatePurchaseOrder: (orgId: OrgId, input: UpdatePurchaseOrderInput) ->
+   (PurchaseOrder);
+  updateQualityControl: (orgId: OrgId, input: UpdateQualityControlInput) ->
+   (QualityControl);
+  updateQuotation: (orgId: OrgId, input: UpdateQuotationInput) -> (Quotation);
+  updateRawMaterialRequisition: (orgId: OrgId, input:
+   UpdateRequisitionInput) -> (RawMaterialRequisition);
+  updateRefundRequest: (orgId: OrgId, id: nat, newStatus: text) ->
+   (opt GstRefundRequest);
+  updateRole: (orgId: OrgId, input: UpdateRoleInput) -> (opt Role);
+  updateRoutingOperation: (orgId: OrgId, input:
+   UpdateRoutingOperationInput) -> (RoutingOperation);
+  updateSalesOrder: (orgId: OrgId, input: UpdateSalesOrderInput) ->
+   (SalesOrder);
+  updateScrapRecord: (orgId: OrgId, input: UpdateScrapRecordInput) ->
+   (ScrapRecord);
+  updateShipment: (orgId: OrgId, id: nat, input: UpdateShipmentInput) ->
+   (opt Shipment);
+  updateShipmentStatus: (orgId: OrgId, id: nat, status: ShipmentStatus) ->
+   (opt Shipment);
+  updateShopFloorControl: (orgId: OrgId, input: UpdateShopFloorInput) ->
+   (ShopFloorControl);
+  updateWorkOrder: (orgId: OrgId, input: UpdateWorkOrderInput) -> (WorkOrder);
+  upsertStockLevel: (orgId: OrgId, input: UpdateStockLevelInput) ->
+   (StockLevel);
+  voidInvoice: (orgId: OrgId, id: InvoiceId) -> ();
+}

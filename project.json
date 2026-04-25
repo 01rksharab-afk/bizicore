@@ -1,0 +1,25 @@
+{
+  "overview": "BizCore is a comprehensive B2B SaaS business productivity platform with CRM, Finance, Accounting, Inventory, ERP Manufacturing, and a customizable Console with traffic analytics.",
+  "features": [
+    "Traffic analytics dashboard on Console with internal/external tracking",
+    "Automatic page-view capture on navigation",
+    "Full Traffic Report page with date/source/page filters",
+    "Multi-format export: CSV, Excel, PDF",
+    "Persistent backend storage for all traffic data",
+    "ON/OFF toggle for traffic module",
+    "Top pages and top referrers widgets",
+    "Org-scoped traffic isolation"
+  ],
+  "category": "productivity",
+  "tags": [
+    "b2b",
+    "saas",
+    "erp",
+    "crm",
+    "analytics",
+    "traffic",
+    "console",
+    "reporting"
+  ],
+  "last_updated": "2026-04-11T03:29:36.075Z"
+}

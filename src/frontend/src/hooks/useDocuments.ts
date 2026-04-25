@@ -1,0 +1,2 @@
+// Documents module removed.
+export {};

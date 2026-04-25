@@ -1,0 +1,2 @@
+// Catalogue module removed.
+export {};
